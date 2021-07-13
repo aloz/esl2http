@@ -43,8 +43,13 @@ ENV PATH=$PATH:$DOTNET_INSTALL_DIR
 WORKDIR $DIR_BUILD/src/$MICROSVC_NAME
 COPY $MICROSVC_NAME.sln .
 COPY $MICROSVC_NAME/* $MICROSVC_NAME/
+# Deleting Visual Studio build artifacts (otherwise the build will failed)
 RUN dotnet clean -c Debug
 RUN dotnet clean -c Release
+RUN rm -rf $MICROSVC_NAME/bin
+RUN rm -rf $MICROSVC_NAME/obj/Debug
+RUN rm -rf $MICROSVC_NAME/obj/Release
+# Let's go!
 RUN dotnet restore $MICROSVC_NAME.sln
 RUN dotnet build $MICROSVC_NAME.sln -c Release -o $DIR_BUILD/build/$MICROSVC_NAME
 RUN dotnet publish $MICROSVC_NAME.sln -c Release -o $DIR_PUBLISH/$MICROSVC_NAME
