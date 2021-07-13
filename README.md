@@ -1,2 +1,2 @@
 # esl2http
-FreeSWITCH ESL 2 HTTP adapter
+FreeSWITCH ESL 2 HTTP adapter microservice
