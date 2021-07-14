@@ -1,4 +1,6 @@
 # For historical purposes only.
+# This file is no longer supported.
+# It's a shame to show it :)
 # This file was created when had a difficulties to prepare container under Alpine linux.
 # But now I have solved difficulties how to build under Alpine, so please just omit this file.
 FROM debian

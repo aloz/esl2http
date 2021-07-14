@@ -1,0 +1,4 @@
+# Avoid Visual Studio build artifacts to be copied to the Image
+
+esl2http/bin
+esl2http/obj 

@@ -12,6 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProjectFiles", "ProjectFile
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{C9CF548B-FC2B-4B7C-90FC-B3C317827A27}"
 	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
 		ProjectFiles\Docker\1.delete-objects.cmd = ProjectFiles\Docker\1.delete-objects.cmd
 		ProjectFiles\Docker\2.build-image.cmd = ProjectFiles\Docker\2.build-image.cmd
 		ProjectFiles\Docker\3.run-container.cmd = ProjectFiles\Docker\3.run-container.cmd
