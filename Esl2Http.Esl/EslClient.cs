@@ -236,14 +236,8 @@ namespace Esl2Http.Esl
                     string buffString = ASCIIEncoding.ASCII.GetString(buffRx, 0, rclen);
                     _LogDelegate(buffString);
                 }
-                else if (
-                    headersCount == 3
-                    && dictHeaders[CONST_ESLH_ContentType_NAME] == CONST_ESLH_ContentType_VALUE_DisconnectedNotice
-                    && int.TryParse(dictHeaders[CONST_ESLH_ContentLength_NAME], out contentLen)
-                    )
-                {
-
-                }
+                else
+                    _LogDelegate("Something wrong with Disconnected Notice");
             }
 
             int GetCommandReply(string command, params string[] headernames)
@@ -278,12 +272,15 @@ namespace Esl2Http.Esl
                 foreach (string hdr in hdrs)
                 {
                     Tuple<string, string> hkv = SplitHeaderKeyValue(hdr);
-                    string key = hkv.Item1;
-                    string val = hkv.Item2;
-                    if (dictKnownHeaders.ContainsKey(key))
+                    if (hkv != null)
                     {
-                        dictKnownHeaders[key] = val;
-                        result++;
+                        string key = hkv.Item1;
+                        string val = hkv.Item2;
+                        if (dictKnownHeaders.ContainsKey(key))
+                        {
+                            dictKnownHeaders[key] = val;
+                            result++;
+                        }
                     }
                 }
                 return result;
@@ -291,10 +288,11 @@ namespace Esl2Http.Esl
 
             Tuple<string, string> SplitHeaderKeyValue(string header)
             {
-                Tuple<string, string> result;
+                Tuple<string, string> result = null;
                 List<string> lst = new List<string>();
                 string[] split = header.Split(CONST_SEPARATOR_COLON);
-                result = new Tuple<string, string>(split[0].Trim(), split[1].Trim());
+                if (split.Length == 2)
+                    result = new Tuple<string, string>(split[0].Trim(), split[1].Trim());
                 return result;
             }
 
