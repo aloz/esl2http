@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace esl2http
+namespace Esl2Http
 {
     public class Program
     {

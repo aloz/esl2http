@@ -1,16 +1,19 @@
+using Esl2Http.Common.Interfaces.Esl;
+using Esl2Http.Esl;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using static Esl2Http.Common.EslClientDelegates;
 
-namespace esl2http
+namespace Esl2Http
 {
     public class Worker : BackgroundService
     {
         private readonly ILogger<Worker> _logger;
+
+        private IEslClient _eslClient;
 
         public Worker(ILogger<Worker> logger)
         {
@@ -19,16 +22,85 @@ namespace esl2http
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            throw new Exception($"{DateTime.Now} Crashed! :)))");
+            if(!stoppingToken.IsCancellationRequested)
+            {
+                _eslClient = new EslClient();
+                _eslClient.Start(EslClientLogDelegateCallback, EslClientResponseEslEventDelegateCallback,
+                    Config.EslEventsToSubscribe,
+                    Config.EslRxBufferSize);
+            }
 
             while (!stoppingToken.IsCancellationRequested)
             {
-                _logger.LogInformation("Information - Worker running at: {time}", DateTimeOffset.Now);
-                _logger.LogWarning("Warning - Worker running at: {time}", DateTimeOffset.Now);
-                _logger.LogError("Error - Worker running at: {time}", DateTimeOffset.Now);
-                _logger.LogCritical("Critical - Worker running at: {time}", DateTimeOffset.Now);
+                CheckThreadsAlive();
                 await Task.Delay(1000, stoppingToken);
             }
+
+            WriteToConsoleLog("Exit signal", EslClientLogType.Warning);
+            _eslClient.Stop();
+            try
+            {
+                _eslClient.Dispose();
+            }
+            catch { }
+        }
+
+        private void WriteToConsoleLog(string str, EslClientLogType LogType = EslClientLogType.Information)
+        {
+            string logstr = $"{DateTime.UtcNow}\t{str}";
+            if (!logstr.EndsWith("\n"))
+                logstr += "\n";
+            switch (LogType)
+            {
+                case EslClientLogType.Information:
+                    {
+                        _logger.LogInformation(logstr);
+                        break;
+                    }
+                case EslClientLogType.Warning:
+                    {
+                        _logger.LogWarning(logstr);
+                        break;
+                    }
+                case EslClientLogType.Error:
+                    {
+                        _logger.LogError(logstr);
+                        break;
+                    }
+                case EslClientLogType.Critical:
+                    {
+                        _logger.LogCritical(logstr);
+                        break;
+                    }
+                default:
+                    {
+                        _logger.LogInformation(logstr);
+                        break;
+                    }
+            }
+        }
+
+        private void EslClientLogDelegateCallback(string str, EslClientLogType LogType)
+        {
+            WriteToConsoleLog(str, LogType);
+        }
+
+        public void EslClientResponseEslEventDelegateCallback(string str)
+        {
+            // TODO add it to queue
+            WriteToConsoleLog(str);
+        }
+
+        private void CheckThreadsAlive()
+        {
+            // TODO
+        }
+
+        public override void Dispose()
+        {
+            // TODO all my IDisposable
+            try { _eslClient.Dispose(); } catch { }
+            base.Dispose();
         }
     }
 }

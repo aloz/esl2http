@@ -1,13 +1,15 @@
 {
   "profiles": {
-    "esl2http": {
+    "Esl2Http": {
       "commandName": "Project",
       "environmentVariables": {
+        "esl2http_EslEventsToSubscribe": "\"CHANNEL_ORIGINATE\"",
+        "esl2http_EslRxBufferSize": "4096",
         "DOTNET_ENVIRONMENT": "Development"
       },
       "dotnetRunMessages": "true"
     },
-   "WSL 2": {
+    "WSL 2": {
       "commandName": "WSL2",
       "environmentVariables": {
         "DOTNET_ENVIRONMENT": "Development"

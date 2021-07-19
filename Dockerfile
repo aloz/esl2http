@@ -11,11 +11,11 @@ LABEL author=aloz
 ################ Build arguments ################
 
 # The source code need to be built inside the container
-ARG DIR_BUILD=/tmp/esl2http-build
+ARG DIR_BUILD=/tmp/Esl2Http-build
 ARG DIR_PUBLISH=/opt
 
-ARG MICROSVC_NAME=esl2http
-ARG MICROSVC_USER=esl2http
+ARG MICROSVC_NAME=Esl2Http
+ARG MICROSVC_USER=Esl2Http
 
 ARG DOTNET_VERSION=5.0
 ARG DOTNET_INSTALL_DIR=/usr/share/dotnet
@@ -24,11 +24,9 @@ ARG DOTNET_INSTALL_DIR=/usr/share/dotnet
 
 # Applying the latest updates
 # Installing dotnet prepequesites
-# File manager for debug purposes
 RUN apk update && \
     apk upgrade && \
-    apk add bash icu-libs krb5-libs libgcc libintl libssl1.1 libstdc++ zlib
-#    apk add mc
+    apk add bash icu-libs krb5-libs libgcc libintl libssl1.1 libstdc++ zlib mc
 
 # The user to run the microservice
 RUN adduser -D -S -g "FreeSWITCH Esl2Http cross-platform adapter microservice" $MICROSVC_USER
@@ -45,11 +43,18 @@ RUN chmod +x dotnet-install.sh && \
     chown -R $MICROSVC_USER $DOTNET_INSTALL_DIR
 ENV PATH=$PATH:$DOTNET_INSTALL_DIR
 
-# Building microservice from the sources
+# COPY alpine-sysctl.conf /etc/sysctl.conf
+
+# Copying microservice sources
 WORKDIR $DIR_BUILD/src/$MICROSVC_NAME
 COPY $MICROSVC_NAME.sln .
 COPY $MICROSVC_NAME/* $MICROSVC_NAME/
-# Building solution
+COPY $MICROSVC_NAME.Common/* $MICROSVC_NAME.Common/
+COPY $MICROSVC_NAME.Dal/* $MICROSVC_NAME.Dal/
+COPY $MICROSVC_NAME.Esl/* $MICROSVC_NAME.Esl/
+COPY $MICROSVC_NAME.Queue/* $MICROSVC_NAME.Queue/
+
+# Building microservice executable
 # Cleanup build directory
 RUN dotnet restore $MICROSVC_NAME.sln && \
     dotnet build $MICROSVC_NAME.sln -c Release -o $DIR_BUILD/build/$MICROSVC_NAME && \

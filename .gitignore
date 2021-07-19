@@ -3,5 +3,13 @@
 ################################################################################
 
 /.vs
-/esl2http/bin
-/esl2http/obj
+/Esl2Http/bin
+/Esl2Http/obj
+/Esl2Http.Common/bin
+/Esl2Http.Common/obj
+/Esl2Http.Dal/bin
+/Esl2Http.Dal/obj
+/Esl2Http.Esl/bin
+/Esl2Http.Esl/obj
+/Esl2Http.Queue/bin
+/Esl2Http.Queue/obj

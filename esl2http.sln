@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31423.177
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "esl2http", "esl2http\esl2http.csproj", "{420FD4A1-F1BC-4670-9C54-390A759CC9C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Esl2Http", "Esl2Http\Esl2Http.csproj", "{420FD4A1-F1BC-4670-9C54-390A759CC9C4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProjectFiles", "ProjectFiles", "{615E75C6-E99B-44AB-9AD1-B1556B4FECA9}"
 	ProjectSection(SolutionItems) = preProject
@@ -21,6 +21,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{C9CF54
 		Dockerfile-debian = Dockerfile-debian
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Esl2Http.Esl", "Esl2Http.Esl\Esl2Http.Esl.csproj", "{679A4056-D591-4E31-A006-E5E6C17349B4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Esl2Http.Queue", "Esl2Http.Queue\Esl2Http.Queue.csproj", "{04DB7ACA-1775-4C34-ACBC-DFDAD59EF2A7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Esl2Http.Common", "Esl2Http.Common\Esl2Http.Common.csproj", "{3BF038F5-501E-4E09-9B80-D8AE832E14A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Esl2Http.Dal", "Esl2Http.Dal\Esl2Http.Dal.csproj", "{1AA919B9-5AB7-431A-A22D-590AEE2C117F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +39,22 @@ Global
 		{420FD4A1-F1BC-4670-9C54-390A759CC9C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{420FD4A1-F1BC-4670-9C54-390A759CC9C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{420FD4A1-F1BC-4670-9C54-390A759CC9C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{679A4056-D591-4E31-A006-E5E6C17349B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{679A4056-D591-4E31-A006-E5E6C17349B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{679A4056-D591-4E31-A006-E5E6C17349B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{679A4056-D591-4E31-A006-E5E6C17349B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04DB7ACA-1775-4C34-ACBC-DFDAD59EF2A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04DB7ACA-1775-4C34-ACBC-DFDAD59EF2A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04DB7ACA-1775-4C34-ACBC-DFDAD59EF2A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04DB7ACA-1775-4C34-ACBC-DFDAD59EF2A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3BF038F5-501E-4E09-9B80-D8AE832E14A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BF038F5-501E-4E09-9B80-D8AE832E14A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BF038F5-501E-4E09-9B80-D8AE832E14A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BF038F5-501E-4E09-9B80-D8AE832E14A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AA919B9-5AB7-431A-A22D-590AEE2C117F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AA919B9-5AB7-431A-A22D-590AEE2C117F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AA919B9-5AB7-431A-A22D-590AEE2C117F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AA919B9-5AB7-431A-A22D-590AEE2C117F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
