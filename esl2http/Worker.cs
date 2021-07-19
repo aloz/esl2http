@@ -1,5 +1,6 @@
-using Esl2Http.Common.Interfaces.Esl;
+using Esl2Http.Common.Interfaces;
 using Esl2Http.Esl;
+using Esl2Http.Queue;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
@@ -14,6 +15,7 @@ namespace Esl2Http
         private readonly ILogger<Worker> _logger;
 
         private IEslClient _eslClient;
+        private IQueue _queue;
 
         public Worker(ILogger<Worker> logger)
         {
@@ -22,8 +24,10 @@ namespace Esl2Http
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            if(!stoppingToken.IsCancellationRequested)
+            if (!stoppingToken.IsCancellationRequested)
             {
+                _queue = new Queue4Events();
+
                 _eslClient = new EslClient();
                 _eslClient.Start(EslClientLogDelegateCallback, EslClientResponseEslEventDelegateCallback,
                     Config.EslEventsToSubscribe,
@@ -87,8 +91,9 @@ namespace Esl2Http
 
         public void EslClientResponseEslEventDelegateCallback(string str)
         {
-            // TODO add it to queue
             WriteToConsoleLog(str);
+            _queue.Enqueue(str);
+            WriteToConsoleLog($"{_queue.QueueCount } event(s) in Queue");
         }
 
         private void CheckThreadsAlive()
@@ -96,11 +101,13 @@ namespace Esl2Http
             // TODO
         }
 
-        public override void Dispose()
+        public override Task StopAsync(CancellationToken cancellationToken)
         {
             // TODO all my IDisposable
             try { _eslClient.Dispose(); } catch { }
-            base.Dispose();
+            try { _queue.Dispose(); } catch { }
+            return base.StopAsync(cancellationToken);
         }
+
     }
 }

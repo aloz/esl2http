@@ -1,16 +1,15 @@
-﻿using Esl2Http.Common.Interfaces.Esl;
+﻿using Esl2Http.Common;
+using Esl2Http.Common.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.IO;
 using System.Net.Sockets;
 using System.Text;
-using System.Threading;
 using static Esl2Http.Common.EslClientDelegates;
 
 namespace Esl2Http.Esl
 {
-    public class EslClient : IEslClient
+    public class EslClient : BaseThreadWorker, IEslClient
     {
         #region const
 
@@ -39,11 +38,7 @@ namespace Esl2Http.Esl
 
         #region Private vars
 
-        Thread _thWorker;
         Socket _sock;
-
-        bool _isEx;
-        static readonly object _objSyncIsEx = new object();
 
         #endregion
 
@@ -64,9 +59,6 @@ namespace Esl2Http.Esl
             string EslEventsList,
             int RxBufferSize)
         {
-            if (_thWorker != null && _thWorker.IsAlive)
-                throw new InvalidOperationException("EslClient: can't start working thread");
-
             _LogDelegate = LogDelegate;
             _ResponseEventDelegate = ResponseEventDelegate;
             _RxBufferSize = RxBufferSize;
@@ -79,23 +71,19 @@ namespace Esl2Http.Esl
             else
                 _EslEventsList = CONST_EVENT_DEFAULT;
 
-            _thWorker = new Thread(WorkerInner);
-            _thWorker.Start();
+            base.StartWorker();
         }
 
         public void Stop()
         {
-            if (_thWorker == null || (_thWorker != null && !_thWorker.IsAlive))
-                throw new InvalidOperationException("EslClient: can't stop working thread");
-
-            this.IsEx = true;
+            base.StopWorker();
         }
 
         #endregion
 
-        #region Private methods
+        #region Overrides
 
-        private void WorkerInner()
+        protected override void Worker()
         {
 
             byte[] buffRx = new byte[_RxBufferSize];
@@ -106,7 +94,7 @@ namespace Esl2Http.Esl
             bool IsStreamHeaderReceivedContentTypeEventJson = false;
             int StreamEventContentLen = 0;
 
-            if (!this.IsEx)
+            if (!IsEx)
             {
                 StartSocketConnection();
                 _sock.ReceiveBufferSize = buffRx.Length;
@@ -124,7 +112,7 @@ namespace Esl2Http.Esl
 
 
                 headersCount = GetCommandReply($"{CONST_CMD_AUTH} {Secrets.CONST_SECRETS_EslPassword}",
-                    CONST_ESLH_ContentType_NAME, 
+                    CONST_ESLH_ContentType_NAME,
                     CONST_ESLH_ReplyText_NAME);
 
                 if (!(
@@ -149,11 +137,10 @@ namespace Esl2Http.Esl
 
                 //////////////////////////////////////////////////////////////////////
 
-                if (this.IsEx)
+                if (IsEx)
                     SayByeBye();
-
             }
-            while (!this.IsEx)
+            while (!IsEx)
             {
                 // Receive events
                 // the stream is without data integrity
@@ -249,7 +236,7 @@ namespace Esl2Http.Esl
                     string buffString = ASCIIEncoding.ASCII.GetString(buffRx, 0, rclen);
                     _LogDelegate(buffString);
                 }
-                else if(
+                else if (
                     headersCount == 3
                     && dictHeaders[CONST_ESLH_ContentType_NAME] == CONST_ESLH_ContentType_VALUE_DisconnectedNotice
                     && int.TryParse(dictHeaders[CONST_ESLH_ContentLength_NAME], out contentLen)
@@ -302,7 +289,7 @@ namespace Esl2Http.Esl
                 return result;
             }
 
-            Tuple<string,string>  SplitHeaderKeyValue(string header)
+            Tuple<string, string> SplitHeaderKeyValue(string header)
             {
                 Tuple<string, string> result;
                 List<string> lst = new List<string>();
@@ -312,6 +299,10 @@ namespace Esl2Http.Esl
             }
 
         }
+
+        #endregion
+
+        #region Private methods
 
         private void StartSocketConnection()
         {
@@ -354,39 +345,9 @@ namespace Esl2Http.Esl
 
         #endregion
 
-        #region Thread properties possible to access from other thread
-
-        // Worker thread stop signal
-        private bool IsEx
-        {
-            get
-            {
-                lock (_objSyncIsEx)
-                {
-                    lock (_objSyncIsEx)
-                    {
-                        return _isEx;
-                    }
-                }
-            }
-            set
-            {
-                lock (_objSyncIsEx)
-                {
-                    lock (_objSyncIsEx)
-                    {
-                        _isEx = value;
-                    }
-                }
-            }
-        }
-
-        #endregion
-
         public void Dispose()
         {
-            Stop();
-            _thWorker.Join(8 * 1000);
+            base.StopWorker();
         }
     }
 }

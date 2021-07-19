@@ -1,5 +1,4 @@
-﻿using Esl2Http.Common.interfaces.Dal;
-using System;
+﻿using Esl2Http.Common.Interfaces;
 
 namespace Esl2Http.Dal
 {
