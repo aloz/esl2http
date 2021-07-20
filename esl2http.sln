@@ -13,12 +13,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{C9CF548B-FC2B-4B7C-90FC-B3C317827A27}"
 	ProjectSection(SolutionItems) = preProject
 		.dockerignore = .dockerignore
-		ProjectFiles\Docker\1.delete-objects.cmd = ProjectFiles\Docker\1.delete-objects.cmd
-		ProjectFiles\Docker\2.build-image.cmd = ProjectFiles\Docker\2.build-image.cmd
-		ProjectFiles\Docker\3.run-container.cmd = ProjectFiles\Docker\3.run-container.cmd
-		ProjectFiles\Docker\4.stop-container.cmd = ProjectFiles\Docker\4.stop-container.cmd
 		Dockerfile = Dockerfile
-		Dockerfile-debian = Dockerfile-debian
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Esl2Http.Esl", "Esl2Http.Esl\Esl2Http.Esl.csproj", "{679A4056-D591-4E31-A006-E5E6C17349B4}"
@@ -27,7 +22,38 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Esl2Http.Queue", "Esl2Http.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Esl2Http.Common", "Esl2Http.Common\Esl2Http.Common.csproj", "{3BF038F5-501E-4E09-9B80-D8AE832E14A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Esl2Http.Dal", "Esl2Http.Dal\Esl2Http.Dal.csproj", "{1AA919B9-5AB7-431A-A22D-590AEE2C117F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Esl2Http.Dal", "Esl2Http.Dal\Esl2Http.Dal.csproj", "{1AA919B9-5AB7-431A-A22D-590AEE2C117F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.postgres", "1.postgres", "{016C4F9D-21F6-449C-A04E-CEDE922B71C1}"
+	ProjectSection(SolutionItems) = preProject
+		ProjectFiles\Docker\1.postgres\1.delete-objects.cmd = ProjectFiles\Docker\1.postgres\1.delete-objects.cmd
+		ProjectFiles\Docker\1.postgres\2.build-image.cmd = ProjectFiles\Docker\1.postgres\2.build-image.cmd
+		ProjectFiles\Docker\1.postgres\3.run-container.cmd = ProjectFiles\Docker\1.postgres\3.run-container.cmd
+		ProjectFiles\Docker\1.postgres\4.attach-container.cmd = ProjectFiles\Docker\1.postgres\4.attach-container.cmd
+		ProjectFiles\Docker\1.postgres\5.stop-container.cmd = ProjectFiles\Docker\1.postgres\5.stop-container.cmd
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.esl2http", "2.esl2http", "{52585D77-17D0-40D8-9FAD-22BD817786C3}"
+	ProjectSection(SolutionItems) = preProject
+		ProjectFiles\Docker\2.esl2http\1.delete-objects.cmd = ProjectFiles\Docker\2.esl2http\1.delete-objects.cmd
+		ProjectFiles\Docker\2.esl2http\2.build-image.cmd = ProjectFiles\Docker\2.esl2http\2.build-image.cmd
+		ProjectFiles\Docker\2.esl2http\3.run-container.cmd = ProjectFiles\Docker\2.esl2http\3.run-container.cmd
+		ProjectFiles\Docker\2.esl2http\4.attach-container.cmd = ProjectFiles\Docker\2.esl2http\4.attach-container.cmd
+		ProjectFiles\Docker\2.esl2http\5.stop-container.cmd = ProjectFiles\Docker\2.esl2http\5.stop-container.cmd
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Postgres", "Postgres", "{4BBD88B0-CAF0-4DD4-9407-B454FA16CBB0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "conf", "conf", "{D0394543-8AB7-4D70-8345-04F1E2F57B0D}"
+	ProjectSection(SolutionItems) = preProject
+		ProjectFiles\Postgres\conf\pg_hba.conf = ProjectFiles\Postgres\conf\pg_hba.conf
+		ProjectFiles\Postgres\conf\postgresql.conf = ProjectFiles\Postgres\conf\postgresql.conf
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL", "SQL", "{E6629BA4-5E87-4848-A812-809E50FE0B01}"
+	ProjectSection(SolutionItems) = preProject
+		ProjectFiles\Postgres\SQL\init.sql = ProjectFiles\Postgres\SQL\init.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +87,11 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{C9CF548B-FC2B-4B7C-90FC-B3C317827A27} = {615E75C6-E99B-44AB-9AD1-B1556B4FECA9}
+		{016C4F9D-21F6-449C-A04E-CEDE922B71C1} = {C9CF548B-FC2B-4B7C-90FC-B3C317827A27}
+		{52585D77-17D0-40D8-9FAD-22BD817786C3} = {C9CF548B-FC2B-4B7C-90FC-B3C317827A27}
+		{4BBD88B0-CAF0-4DD4-9407-B454FA16CBB0} = {615E75C6-E99B-44AB-9AD1-B1556B4FECA9}
+		{D0394543-8AB7-4D70-8345-04F1E2F57B0D} = {4BBD88B0-CAF0-4DD4-9407-B454FA16CBB0}
+		{E6629BA4-5E87-4848-A812-809E50FE0B01} = {4BBD88B0-CAF0-4DD4-9407-B454FA16CBB0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {792FCE1E-BF60-422B-BF97-91F784B7B686}

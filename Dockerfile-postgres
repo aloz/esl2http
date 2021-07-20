@@ -1,0 +1,59 @@
+FROM alpine
+
+LABEL description="Esl2Http postgres"
+LABEL author=aloz
+
+################ Build arguments ################
+
+ARG VOL_DATA_PGSQL=/mnt/postgres
+ARG SQL_SCRIPTS_DIR=/tmp/sql-esl2http
+
+################ Build arguments ################
+
+# Applying the latest updates
+# Installing dotnet prepequesites
+RUN apk update && \
+    apk upgrade && \
+    apk add postgresql && \
+    apk add bash
+
+EXPOSE 5432/tcp
+
+RUN mkdir -p $VOL_DATA_PGSQL/data && \
+    mkdir /run/postgresql && \
+    mkdir $SQL_SCRIPTS_DIR && \
+    chown -R postgres $VOL_DATA_PGSQL && \
+    chown -R postgres /run/postgresql
+
+# Copy SQL scripts
+COPY ProjectFiles/Postgres/SQL/* $SQL_SCRIPTS_DIR
+
+VOLUME $VOL_DATA_PGSQL
+WORKDIR $VOL_DATA_PGSQL/data
+
+# First DB start to initialize data
+USER postgres
+RUN pg_ctl initdb -D $VOL_DATA_PGSQL/data
+
+# Copy config files
+# Set ownership on the configs and SQL scripts
+USER root
+COPY ProjectFiles/Postgres/conf/pg_hba.conf .
+COPY ProjectFiles/Postgres/conf/postgresql.conf .
+RUN chown postgres pg_hba.conf && \
+    chown postgres postgresql.conf && \
+    chmod 600 pg_hba.conf && \
+    chmod 600 postgresql.conf && \
+    chown -R postgres $SQL_SCRIPTS_DIR
+USER postgres
+
+RUN pg_ctl start -D $VOL_DATA_PGSQL/data -l $VOL_DATA_PGSQL/data/log.log && \
+
+    psql -f $SQL_SCRIPTS_DIR/init.sql && \
+
+    pg_ctl stop -D $VOL_DATA_PGSQL/data && \
+    rm -rf $SQL_SCRIPTS_DIR
+
+ENV ENTRYPOINT_postgres=$VOL_DATA_PGSQL/data
+ENTRYPOINT postgres -D $ENTRYPOINT_postgres
+

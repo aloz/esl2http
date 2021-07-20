@@ -1,6 +1,9 @@
-# no longer supported - just for historical pusposes.
-# Use Alpine instead
-FROM debian
+# The most lightweigh image
+# NB: RUN commands are joined
+# to optimize container build process
+# by decreasing number of layers
+# taking into account layers caching behavior
+FROM alpine
 
 LABEL description="FreeSWITCH Esl2Http cross-platform adapter microservice"
 LABEL author=aloz
@@ -21,12 +24,12 @@ ARG DOTNET_INSTALL_DIR=/usr/share/dotnet
 
 # Applying the latest updates
 # Installing dotnet prepequesites
-RUN apt-get update && \
-    apt-get upgrade && \
-    apt-get install --yes libssl-dev ca-certificates mc
+RUN apk update && \
+    apk upgrade && \
+    apk add bash icu-libs krb5-libs libgcc libintl libssl1.1 libstdc++ zlib
 
 # The user to run the microservice
-RUN useradd --create-home $MICROSVC_USER
+RUN adduser -D -S -g "FreeSWITCH Esl2Http cross-platform adapter microservice" $MICROSVC_USER
 
 WORKDIR $DIR_BUILD
 
@@ -35,7 +38,7 @@ WORKDIR $DIR_BUILD
 # If the script is changed then update wget as well
 ADD https://dot.net/v1/dotnet-install.sh .
 RUN chmod +x dotnet-install.sh && \
-    apt-get install --yes wget && \
+    apk add wget && \
     ./dotnet-install.sh --channel $DOTNET_VERSION --install-dir $DOTNET_INSTALL_DIR && \
     chown -R $MICROSVC_USER $DOTNET_INSTALL_DIR
 ENV PATH=$PATH:$DOTNET_INSTALL_DIR
