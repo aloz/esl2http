@@ -14,8 +14,8 @@ ARG SQL_SCRIPTS_DIR=/tmp/sql-esl2http
 # Installing dotnet prepequesites
 RUN apk update && \
     apk upgrade && \
-    apk add postgresql && \
-    apk add bash
+    apk add postgresql
+#    apk add bash mc
 
 EXPOSE 5432/tcp
 
@@ -26,7 +26,7 @@ RUN mkdir -p $VOL_DATA_PGSQL/data && \
     chown -R postgres /run/postgresql
 
 # Copy SQL scripts
-COPY ProjectFiles/Postgres/SQL/* $SQL_SCRIPTS_DIR
+COPY ProjectFiles/Postgres/SQL $SQL_SCRIPTS_DIR
 
 VOLUME $VOL_DATA_PGSQL
 WORKDIR $VOL_DATA_PGSQL/data
@@ -50,6 +50,7 @@ USER postgres
 RUN pg_ctl start -D $VOL_DATA_PGSQL/data -l $VOL_DATA_PGSQL/data/log.log && \
 
     psql -f $SQL_SCRIPTS_DIR/init.sql && \
+    psql -d esl2http -f $SQL_SCRIPTS_DIR/Tables/Events.sql && \
 
     pg_ctl stop -D $VOL_DATA_PGSQL/data && \
     rm -rf $SQL_SCRIPTS_DIR

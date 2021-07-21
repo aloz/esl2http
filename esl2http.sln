@@ -55,6 +55,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL", "SQL", "{E6629BA4-5E8
 		ProjectFiles\Postgres\SQL\init.sql = ProjectFiles\Postgres\SQL\init.sql
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tables", "Tables", "{5347FBEB-9F40-4446-8DAB-E9A5C52F2D6F}"
+	ProjectSection(SolutionItems) = preProject
+		ProjectFiles\Postgres\SQL\Tables\Events.sql = ProjectFiles\Postgres\SQL\Tables\Events.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -92,6 +97,7 @@ Global
 		{4BBD88B0-CAF0-4DD4-9407-B454FA16CBB0} = {615E75C6-E99B-44AB-9AD1-B1556B4FECA9}
 		{D0394543-8AB7-4D70-8345-04F1E2F57B0D} = {4BBD88B0-CAF0-4DD4-9407-B454FA16CBB0}
 		{E6629BA4-5E87-4848-A812-809E50FE0B01} = {4BBD88B0-CAF0-4DD4-9407-B454FA16CBB0}
+		{5347FBEB-9F40-4446-8DAB-E9A5C52F2D6F} = {E6629BA4-5E87-4848-A812-809E50FE0B01}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {792FCE1E-BF60-422B-BF97-91F784B7B686}
