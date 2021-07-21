@@ -3,7 +3,8 @@
     "Esl2Http": {
       "commandName": "Project",
       "environmentVariables": {
-        "esl2http_EslEventsToSubscribe": "\"CHANNEL_ORIGINATE\"",
+        "esl2http_DbConnectionString": "Host=localhost;Username=esl2http;Password=esl2http;Database=esl2http",
+        "esl2http_EslEventsToSubscribe": "CHANNEL_ORIGINATE CHANNEL_ANSWER CHANNEL_HANGUP",
         "esl2http_EslRxBufferSize": "4096",
         "DOTNET_ENVIRONMENT": "Development"
       },

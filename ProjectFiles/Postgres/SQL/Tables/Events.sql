@@ -1,6 +1,6 @@
 CREATE TABLE events (
-	id int8range NOT NULL,
-	arrived timestamp NOT NULL DEFAULT now(),
+	id bigserial NOT NULL,
+	arrived timestamp NOT NULL DEFAULT now()::timestamp,
 	jsonevent json NOT NULL,
 	PRIMARY KEY (ID)
 );

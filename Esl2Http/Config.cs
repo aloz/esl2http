@@ -29,5 +29,16 @@ namespace Esl2Http
                 return result;
             }
         }
+
+        public static string DbConnectionString
+        {
+            get
+            {
+                string result = Environment.GetEnvironmentVariable($"{CONST_ENV_PREFIX}DBConnectionString");
+                if (string.IsNullOrEmpty(result))
+                    result = "Host=localhost;Username=esl2http;Password=esl2http;Database=esl2http";
+                return result;
+            }
+        }
     }
 }

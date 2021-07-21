@@ -50,7 +50,10 @@ USER postgres
 RUN pg_ctl start -D $VOL_DATA_PGSQL/data -l $VOL_DATA_PGSQL/data/log.log && \
 
     psql -f $SQL_SCRIPTS_DIR/init.sql && \
+
     psql -U esl2http -d esl2http -f $SQL_SCRIPTS_DIR/Tables/events.sql && \
+
+    psql -U esl2http -d esl2http -f $SQL_SCRIPTS_DIR/Procedures/usp_events_add.sql && \
 
     pg_ctl stop -D $VOL_DATA_PGSQL/data && \
     rm -rf $SQL_SCRIPTS_DIR

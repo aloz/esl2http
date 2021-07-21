@@ -1,6 +1,7 @@
 using Esl2Http.Interfaces;
 using Esl2Http.Parts.EslClient;
 using Esl2Http.Parts.EslEventQueue;
+using Esl2Http.Parts.EslEventQueueDbPersister;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
@@ -14,13 +15,24 @@ namespace Esl2Http
     {
         private readonly ILogger<Worker> _logger;
 
-        private IEslClient _eslClient;
-        private IEslEventQueue _queue;
+        #region Private vars
+
+        IEslClient _eslClient;
+        IEslEventQueue _queue;
+        IEslEventQueueDbPersister _queuePersister;
+
+        #endregion
+
+        #region ctor
 
         public Worker(ILogger<Worker> logger)
         {
             _logger = logger;
         }
+
+        #endregion
+
+        #region BackgroundService members
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
@@ -29,9 +41,18 @@ namespace Esl2Http
                 _queue = new EslEventQueue();
 
                 _eslClient = new EslClient();
-                _eslClient.Start(EslClientLogDelegateCallback, EslClientResponseEslEventDelegateCallback,
+                _eslClient.Start(
+                    EslClientLogDelegateCallback, 
+                    EslClientResponseEslEventDelegateCallback,
                     Config.EslEventsToSubscribe,
                     Config.EslRxBufferSize);
+
+                _queuePersister = new EslEventQueueDbPersisterPostgres();
+                _queuePersister.Start(
+                    EslClientLogDelegateCallback,
+                    _queue,
+                    Config.DbConnectionString
+                    );
             }
 
             while (!stoppingToken.IsCancellationRequested)
@@ -41,13 +62,16 @@ namespace Esl2Http
             }
 
             WriteToConsoleLog("Exit signal", EslClientLogType.Warning);
-            _eslClient.Stop();
-            try
-            {
-                _eslClient.Dispose();
-            }
-            catch { }
         }
+        public override Task StopAsync(CancellationToken cancellationToken)
+        {
+            StopAndDisposeParts();
+            return base.StopAsync(cancellationToken);
+        }
+
+        #endregion
+
+        #region Console logging and delegates
 
         private void WriteToConsoleLog(string str, EslClientLogType LogType = EslClientLogType.Information)
         {
@@ -96,17 +120,28 @@ namespace Esl2Http
             WriteToConsoleLog($"{_queue.QueueCount } event(s) in Queue");
         }
 
+        #endregion
+
         private void CheckThreadsAlive()
         {
             // TODO
         }
 
-        public override Task StopAsync(CancellationToken cancellationToken)
+        void StopAndDisposeParts()
         {
             // TODO all my IDisposable
+            _eslClient.Stop();
             try { _eslClient.Dispose(); } catch { }
+            _queuePersister.Stop();
+            try { _queuePersister.Dispose(); } catch { }
+            _queue.Dispose();
             try { _queue.Dispose(); } catch { }
-            return base.StopAsync(cancellationToken);
+        }
+
+        public override void Dispose()
+        {
+            StopAndDisposeParts();
+            base.Dispose();
         }
 
     }
