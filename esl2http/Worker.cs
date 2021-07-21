@@ -1,12 +1,12 @@
-using Esl2Http.Common.Interfaces;
-using Esl2Http.Esl;
-using Esl2Http.Queue;
+using Esl2Http.Interfaces;
+using Esl2Http.Parts.EslClient;
+using Esl2Http.Parts.EslEventQueue;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using static Esl2Http.Common.EslClientDelegates;
+using static Esl2Http.Delegates.EslClientDelegates;
 
 namespace Esl2Http
 {
@@ -15,7 +15,7 @@ namespace Esl2Http
         private readonly ILogger<Worker> _logger;
 
         private IEslClient _eslClient;
-        private IQueue _queue;
+        private IEslEventQueue _queue;
 
         public Worker(ILogger<Worker> logger)
         {
@@ -26,7 +26,7 @@ namespace Esl2Http
         {
             if (!stoppingToken.IsCancellationRequested)
             {
-                _queue = new Queue4Events();
+                _queue = new EslEventQueue();
 
                 _eslClient = new EslClient();
                 _eslClient.Start(EslClientLogDelegateCallback, EslClientResponseEslEventDelegateCallback,

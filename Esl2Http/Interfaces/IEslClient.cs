@@ -1,9 +1,9 @@
 ﻿using System;
-using static Esl2Http.Common.EslClientDelegates;
+using static Esl2Http.Delegates.EslClientDelegates;
 
-namespace Esl2Http.Common.Interfaces
+namespace Esl2Http.Interfaces
 {
-    public interface IEslClient : IDisposable
+    interface IEslClient : IDisposable
     {
         void Start(
             EslClientLogDelegate LogDelegate,

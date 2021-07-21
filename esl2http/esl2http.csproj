@@ -7,13 +7,11 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
+    <PackageReference Include="Npgsql" Version="5.0.7" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Esl2Http.Dal\Esl2Http.Dal.csproj" />
-    <ProjectReference Include="..\Esl2Http.Esl\Esl2Http.Esl.csproj" />
-    <ProjectReference Include="..\Esl2Http.Common\Esl2Http.Common.csproj" />
-    <ProjectReference Include="..\Esl2Http.Queue\Esl2Http.Queue.csproj" />
+    <ProjectReference Include="..\Esl2Http.Private\Esl2Http.Private.csproj" />
   </ItemGroup>
 
   <ItemGroup>

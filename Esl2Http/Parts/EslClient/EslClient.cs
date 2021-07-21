@@ -1,15 +1,16 @@
-﻿using Esl2Http.Common;
-using Esl2Http.Common.Interfaces;
+﻿using Esl2Http.Base;
+using Esl2Http.Interfaces;
+using Esl2Http.Private;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Net.Sockets;
 using System.Text;
-using static Esl2Http.Common.EslClientDelegates;
+using static Esl2Http.Delegates.EslClientDelegates;
 
-namespace Esl2Http.Esl
+namespace Esl2Http.Parts.EslClient
 {
-    public class EslClient : BaseThreadWorker, IEslClient
+    class EslClient : BaseThreadWorker, IEslClient
     {
         #region const
 
@@ -213,12 +214,14 @@ namespace Esl2Http.Esl
                     CONST_ESLH_ContentType_NAME,
                     CONST_ESLH_ReplyText_NAME);
 
+                /*
                 if (!(
                     headersCount == 2
                     && dictHeaders[CONST_ESLH_ContentType_NAME] == CONST_ESLH_ContentType_VALUE_CommandReply
                     && dictHeaders[CONST_ESLH_ReplyText_NAME].StartsWith(CONST_ESLH_ReplyText_VALUE_ReplyTextOk_STARTSWITH)
                     ))
-                    throw new InvalidOperationException("wrong exit command");
+                        throw new InvalidOperationException("wrong exit command");
+                */
 
                 // Receive disconnected notice
                 headersCount = GetCommandReply(null,
@@ -236,8 +239,10 @@ namespace Esl2Http.Esl
                     string buffString = ASCIIEncoding.ASCII.GetString(buffRx, 0, rclen);
                     _LogDelegate(buffString);
                 }
+                /*
                 else
                     _LogDelegate("Something wrong with Disconnected Notice");
+                */
             }
 
             int GetCommandReply(string command, params string[] headernames)

@@ -1,8 +1,8 @@
-﻿using Esl2Http.Common.Interfaces;
+﻿using Esl2Http.Interfaces;
 
 namespace Esl2Http.Dal
 {
-    public class DalPostgre : IDal
+    class DalPostgre : IDal
     {
         public void Dispose()
         {

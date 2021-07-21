@@ -1,13 +1,16 @@
-﻿using System;
+﻿using Esl2Http.Interfaces;
+using System;
 
-namespace Esl2Http.Common
+namespace Esl2Http.Parts.EslEventQueue
 {
-    public class QueueItem
+    class EslEventQueueItem : IEslEventQueueItem
     {
         string _EventContent;
         DateTime _arrived;
 
-        public QueueItem(string EventContent)
+        protected EslEventQueueItem() { }
+
+        public EslEventQueueItem(string EventContent)
         {
             this.EventContent = EventContent;
             this.Arrived = DateTime.UtcNow;

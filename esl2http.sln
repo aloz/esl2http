@@ -13,16 +13,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{C9CF548B-FC2B-4B7C-90FC-B3C317827A27}"
 	ProjectSection(SolutionItems) = preProject
 		.dockerignore = .dockerignore
-		Dockerfile = Dockerfile
+		Dockerfile-esl2http = Dockerfile-esl2http
+		Dockerfile-postgres = Dockerfile-postgres
 	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Esl2Http.Esl", "Esl2Http.Esl\Esl2Http.Esl.csproj", "{679A4056-D591-4E31-A006-E5E6C17349B4}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Esl2Http.Queue", "Esl2Http.Queue\Esl2Http.Queue.csproj", "{04DB7ACA-1775-4C34-ACBC-DFDAD59EF2A7}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Esl2Http.Common", "Esl2Http.Common\Esl2Http.Common.csproj", "{3BF038F5-501E-4E09-9B80-D8AE832E14A5}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Esl2Http.Dal", "Esl2Http.Dal\Esl2Http.Dal.csproj", "{1AA919B9-5AB7-431A-A22D-590AEE2C117F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.postgres", "1.postgres", "{016C4F9D-21F6-449C-A04E-CEDE922B71C1}"
 	ProjectSection(SolutionItems) = preProject
@@ -60,6 +53,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tables", "Tables", "{5347FB
 		ProjectFiles\Postgres\SQL\Tables\Events.sql = ProjectFiles\Postgres\SQL\Tables\Events.sql
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Esl2Http.Private", "Esl2Http.Private\Esl2Http.Private.csproj", "{3A9EBD61-DAC8-4B21-A8A4-508ED7C49565}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -70,22 +65,10 @@ Global
 		{420FD4A1-F1BC-4670-9C54-390A759CC9C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{420FD4A1-F1BC-4670-9C54-390A759CC9C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{420FD4A1-F1BC-4670-9C54-390A759CC9C4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{679A4056-D591-4E31-A006-E5E6C17349B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{679A4056-D591-4E31-A006-E5E6C17349B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{679A4056-D591-4E31-A006-E5E6C17349B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{679A4056-D591-4E31-A006-E5E6C17349B4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{04DB7ACA-1775-4C34-ACBC-DFDAD59EF2A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{04DB7ACA-1775-4C34-ACBC-DFDAD59EF2A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{04DB7ACA-1775-4C34-ACBC-DFDAD59EF2A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{04DB7ACA-1775-4C34-ACBC-DFDAD59EF2A7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3BF038F5-501E-4E09-9B80-D8AE832E14A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3BF038F5-501E-4E09-9B80-D8AE832E14A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3BF038F5-501E-4E09-9B80-D8AE832E14A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3BF038F5-501E-4E09-9B80-D8AE832E14A5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1AA919B9-5AB7-431A-A22D-590AEE2C117F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1AA919B9-5AB7-431A-A22D-590AEE2C117F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1AA919B9-5AB7-431A-A22D-590AEE2C117F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1AA919B9-5AB7-431A-A22D-590AEE2C117F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A9EBD61-DAC8-4B21-A8A4-508ED7C49565}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A9EBD61-DAC8-4B21-A8A4-508ED7C49565}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A9EBD61-DAC8-4B21-A8A4-508ED7C49565}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A9EBD61-DAC8-4B21-A8A4-508ED7C49565}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace Esl2Http.Common.Interfaces
+namespace Esl2Http.Interfaces
 {
-    public interface IQueue : IDisposable
+    interface IEslEventQueue : IDisposable
     {
         void Enqueue(string EventContent);
 
-        QueueItem Dequeue();
+        IEslEventQueueItem Dequeue();
 
         int QueueCount
         {

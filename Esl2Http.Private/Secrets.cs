@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Esl2Http.Esl
+namespace Esl2Http.Private
 {
     /// <summary>
     /// This is hardcoded values for internal security purposes.
@@ -12,9 +8,9 @@ namespace Esl2Http.Esl
     /// UNDO GIT CHANGES BEFORE COMMIT !!!
     /// THIS FILE MUST BE UNCHANGED INTO THE REPOSITORY !!!
     /// </summary>
-    static class Secrets
+    public static class Secrets
     {
-        internal const string CONST_SECRETS_EslHostPort = "";
-        internal const string CONST_SECRETS_EslPassword = "";
+        public const string CONST_SECRETS_EslHostPort = "";
+        public const string CONST_SECRETS_EslPassword = "";
     }
 }

@@ -1,28 +1,27 @@
-﻿using Esl2Http.Common;
-using Esl2Http.Common.Interfaces;
+﻿using Esl2Http.Interfaces;
 using System.Collections.Generic;
 
-namespace Esl2Http.Queue
+namespace Esl2Http.Parts.EslEventQueue
 {
-    public class Queue4Events : IQueue
+    class EslEventQueue : IEslEventQueue
     {
         #region Private vars
 
-        Queue<QueueItem> _queue;
+        Queue<EslEventQueueItem> _queue;
         static readonly object _objSyncQueue = new object();
 
         #endregion
 
         #region ctor
 
-        public Queue4Events()
+        public EslEventQueue()
         {
-            _queue = new Queue<QueueItem>();
+            _queue = new Queue<EslEventQueueItem>();
         }
 
         #endregion
 
-        #region IQueue members
+        #region EslEventQueue members
 
         public void Enqueue(string EventContent)
         {
@@ -30,14 +29,14 @@ namespace Esl2Http.Queue
             {
                 lock (_objSyncQueue)
                 {
-                    _queue.Enqueue(new QueueItem(EventContent));
+                    _queue.Enqueue(new EslEventQueueItem(EventContent));
                 }
             }
         }
 
-        public QueueItem Dequeue()
+        public IEslEventQueueItem Dequeue()
         {
-            QueueItem result = null;
+            EslEventQueueItem result = null;
             lock (_objSyncQueue)
             {
                 lock (_objSyncQueue)

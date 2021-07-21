@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading;
 
-namespace Esl2Http.Common
+namespace Esl2Http.Base
 {
-    public abstract class BaseThreadWorker
+    abstract class BaseThreadWorker
     {
         Thread _thWorker;
 

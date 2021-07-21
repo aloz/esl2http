@@ -11,7 +11,7 @@ namespace Esl2Http
             {
                 int result = 4096;
                 string envval = Environment.GetEnvironmentVariable($"{CONST_ENV_PREFIX}EslRxBufferSize");
-                if(!string.IsNullOrEmpty(envval))
+                if (!string.IsNullOrEmpty(envval))
                 {
                     int.TryParse(envval, out result);
                 }

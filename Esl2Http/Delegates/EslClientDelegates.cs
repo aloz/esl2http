@@ -1,6 +1,6 @@
-﻿namespace Esl2Http.Common
+﻿namespace Esl2Http.Delegates
 {
-    public class EslClientDelegates
+    class EslClientDelegates
     {
         public enum EslClientLogType
         {
