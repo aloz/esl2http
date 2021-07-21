@@ -1,7 +1,8 @@
-CREATE TABLE Events (
-	ID int8range NOT NULL,
-	Arrived timestamp NOT NULL DEFAULT now(),
-	JsonEvent json NOT NULL
+CREATE TABLE events (
+	id int8range NOT NULL,
+	arrived timestamp NOT NULL DEFAULT now(),
+	jsonevent json NOT NULL,
+	PRIMARY KEY (ID)
 );
-CREATE UNIQUE INDEX IX_Events_ID ON Events USING btree (ID); 
-CREATE INDEX IX_Events_Arrived ON Events USING btree (Arrived);
+CREATE UNIQUE INDEX events_id_idx ON Events USING btree (id); 
+CREATE INDEX events_arrived_idx ON Events USING btree (arrived);
