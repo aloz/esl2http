@@ -13,7 +13,7 @@ namespace Esl2Http.Dal
             NpgsqlConnection.GlobalTypeMapper.UseJsonNet();
         }
 
-        public DalPostgres(string ConnectionString)
+        public DalPostgres(string ConnectionString) : this()
         {
             _connectionString = ConnectionString;
         }
