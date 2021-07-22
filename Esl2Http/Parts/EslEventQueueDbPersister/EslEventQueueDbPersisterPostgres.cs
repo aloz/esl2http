@@ -53,41 +53,14 @@ namespace Esl2Http.Parts.EslEventQueueDbPersister
                     IEslEventQueueItem EventItem = _queue.Dequeue();
                     if (EventItem != null)
                     {
-                        string jsonevent = EventItem.EventContent;
-                        bool IsHeartbeat;
-                        if (IsEventContentValid(jsonevent, out IsHeartbeat))
-                        {
-                            if (!IsHeartbeat)
-                                _dal.AddEvent(EventItem.Arrived, jsonevent);
-                        }
-                        else
-                        {
-                            if (!IsHeartbeat)
-                                _LogDelegate($"Event content is invalid: {jsonevent}", EslClientLogType.Error);
-                        }
+                        ulong? id= _dal.AddNewEvent(EventItem.Arrived, EventItem.EventContent);
+                        if (!id.HasValue)
+                            _LogDelegate($"Error to add event: {EventItem.EventContent}");
                     }
                 }
             }
             try { _dal.Dispose(); } catch { }
         }
-
-        private bool IsEventContentValid(string jsonevent, out bool IsHeartbeat)
-        {
-            bool result = false;
-            IsHeartbeat = false;
-            if (!string.IsNullOrEmpty(jsonevent))
-            {
-                try
-                {
-                    JObject jobj = JObject.Parse(jsonevent);
-                    IsHeartbeat = jobj["Event-Name"].Value<string>() == "HEARTBEAT";
-                    result = true;
-                }
-                catch { }
-            }
-            return result;
-        }
-
         #endregion
 
         public void Dispose()

@@ -18,7 +18,7 @@ namespace Esl2Http.Dal
             _connectionString = ConnectionString;
         }
 
-        public ulong? AddEvent(DateTime arrived, string jsonevent)
+        public ulong? AddNewEvent(DateTime arrived, string jsonevent)
         {
             ulong? result = null;
 
@@ -29,13 +29,13 @@ namespace Esl2Http.Dal
                 {
                     cmd.CommandText = "call usp_events_add(@arrived, @jsonevent, @out_id)";
 
-                    NpgsqlParameter parm;
                     cmd.Parameters.AddWithValue("arrived", NpgsqlTypes.NpgsqlDbType.Timestamp, arrived);
                     cmd.Parameters.AddWithValue("jsonevent", NpgsqlTypes.NpgsqlDbType.Json, jsonevent);
 
+                    NpgsqlParameter parm;
                     parm = new NpgsqlParameter("out_id", NpgsqlTypes.NpgsqlDbType.Bigint);
                     parm.Direction = System.Data.ParameterDirection.InputOutput;
-                    parm.Value = -1;
+                    parm.Value = 0;
                     cmd.Parameters.Add(parm);
 
                     cmd.ExecuteNonQuery();

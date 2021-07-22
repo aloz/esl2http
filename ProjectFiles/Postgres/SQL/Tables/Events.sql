@@ -1,8 +1,13 @@
 CREATE TABLE events (
-	id bigserial NOT NULL,
-	arrived timestamp NOT NULL DEFAULT now()::timestamp,
-	jsonevent json NOT NULL,
-	PRIMARY KEY (ID)
+	id serial NOT NULL,
+	switch_id serial NOT NULL,
+	event_jsonb jsonb NOT NULL,
+	e_core_uuid uuid NULL GENERATED ALWAYS AS ((event_jsonb ->> 'Core-UUID'::text)::uuid) STORED,
+	e_event_name varchar(50) NULL GENERATED ALWAYS AS (((event_jsonb ->> 'Event-Name'::text))) STORED,
+	e_event_date timestamp NULL GENERATED ALWAYS AS (to_timestamp(((event_jsonb ->> 'Event-Date-Timestamp'::text)::bigint)::double precision / 1000000::double precision)) STORED,
+	CONSTRAINT events_pk PRIMARY KEY (id)
 );
-CREATE UNIQUE INDEX events_id_idx ON Events USING btree (id); 
-CREATE INDEX events_arrived_idx ON Events USING btree (arrived);
+
+
+ALTER TABLE events ADD CONSTRAINT events_fk_switch_core_id FOREIGN KEY (e_core_uuid) REFERENCES switches(core_uuid);
+ALTER TABLE events ADD CONSTRAINT events_fk_switch_id FOREIGN KEY (switch_id) REFERENCES switches(id);
