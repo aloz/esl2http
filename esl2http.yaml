@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+
+  postgres:
+    build:
+      context: .
+      dockerfile: Dockerfile-postgres
+    image: postgres
+    container_name: postgres
+    volumes:
+      - mnt-postgres:/mnt/postgres
+    ports:
+      - "5432:5432"
+    restart: on-failure
+
+  esl2http:
+    build:
+      context: .
+      dockerfile: Dockerfile-esl2http
+    image: esl2http
+    container_name: esl2http
+    env_file: esl2http.env
+    depends_on:
+      - postgres
+
+volumes:
+  mnt-postgres:
+    name: mnt-postgres
