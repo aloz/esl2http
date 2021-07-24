@@ -3,7 +3,7 @@ CREATE TABLE events_heartbeat_last (
 	switch_id serial NOT NULL,
 	event_jsonb jsonb NOT NULL,
 	e_core_uuid uuid NULL GENERATED ALWAYS AS ((event_jsonb ->> 'Core-UUID'::text)::uuid) STORED,
-	e_event_name varchar(50) NULL GENERATED ALWAYS AS (((event_jsonb ->> 'Event-Name'::text))) STORED,
+	e_event_name text NULL GENERATED ALWAYS AS (((event_jsonb ->> 'Event-Name'::text))) STORED,
 	e_event_date timestamp NULL GENERATED ALWAYS AS (to_timestamp(((event_jsonb ->> 'Event-Date-Timestamp'::text)::bigint)::double precision / 1000000::double precision)) STORED,
 	CONSTRAINT events_heartbeat_last_check_event_name CHECK (((e_event_name)::text = 'HEARTBEAT'::text)),
 	CONSTRAINT events_heartbeat_last_pk PRIMARY KEY (id),

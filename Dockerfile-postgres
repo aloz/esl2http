@@ -52,10 +52,15 @@ RUN pg_ctl start -D $VOL_DATA_PGSQL/data -l $VOL_DATA_PGSQL/data/log.log && \
     psql -f $SQL_SCRIPTS_DIR/init.sql && \
 
     psql -U esl2http -d esl2http -f $SQL_SCRIPTS_DIR/Tables/switches.sql && \
-    psql -U esl2http -d esl2http -f $SQL_SCRIPTS_DIR/Tables/events_heartbeat_last.sql  && \
-    psql -U esl2http -d esl2http -f $SQL_SCRIPTS_DIR/Tables/events.sql  && \
+    psql -U esl2http -d esl2http -f $SQL_SCRIPTS_DIR/Tables/events_heartbeat_last.sql && \
+    psql -U esl2http -d esl2http -f $SQL_SCRIPTS_DIR/Tables/events.sql && \
+    psql -U esl2http -d esl2http -f $SQL_SCRIPTS_DIR/Tables/http_post_handlers.sql && \
+    psql -U esl2http -d esl2http -f $SQL_SCRIPTS_DIR/Tables/http_post_statuses.sql && \
+    psql -U esl2http -d esl2http -f $SQL_SCRIPTS_DIR/Tables/http_post_exceptions.sql && \
 
     psql -U esl2http -d esl2http -f $SQL_SCRIPTS_DIR/Procedures/usp_events_add.sql && \
+
+    psql -U esl2http -d esl2http -f $SQL_SCRIPTS_DIR/init_http_post_handlers.sql && \
 
     pg_ctl stop -D $VOL_DATA_PGSQL/data && \
     rm -rf $SQL_SCRIPTS_DIR
