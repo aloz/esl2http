@@ -1,5 +1,5 @@
 CREATE TABLE events (
-	id serial NOT NULL,
+	id bigserial NOT NULL,
 	switch_id serial NOT NULL,
 	event_jsonb jsonb NOT NULL,
 	e_core_uuid uuid NULL GENERATED ALWAYS AS ((event_jsonb ->> 'Core-UUID'::text)::uuid) STORED,
