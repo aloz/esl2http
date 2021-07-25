@@ -60,7 +60,7 @@ RUN pg_ctl start -D $VOL_DATA_PGSQL/data -l $VOL_DATA_PGSQL/data/log.log && \
     psql -U esl2http -d esl2http -f $SQL_SCRIPTS_DIR/Tables/http_post_statuses.sql && \
     psql -U esl2http -d esl2http -f $SQL_SCRIPTS_DIR/Tables/http_post_exceptions.sql && \
 
-    psql -U esl2http -d esl2http -f $SQL_SCRIPTS_DIR/Procedures/usp_events_add.sql && 
+    psql -U esl2http -d esl2http -f $SQL_SCRIPTS_DIR/Procedures/usp_events_add.sql && \
 
     psql -U esl2http -d esl2http -f $SQL_SCRIPTS_DIR/Functions/fn_get_config.sql && \
     psql -U esl2http -d esl2http -f $SQL_SCRIPTS_DIR/Functions/fn_get_http_handlers.sql  && \
