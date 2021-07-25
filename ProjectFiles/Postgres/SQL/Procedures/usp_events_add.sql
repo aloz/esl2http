@@ -1,5 +1,5 @@
 CREATE PROCEDURE
-	usp_events_add(arrived timestamp without time zone, jsonevent json, INOUT out_id bigint)
+    usp_events_add(arrived timestamp without time zone, jsonevent json, INOUT out_id bigint)
  LANGUAGE plpgsql
 AS $$
 DECLARE
@@ -8,9 +8,8 @@ DECLARE
     
     _core_uuid          uuid;
     _switch_id          bigint;
-    _event_name         varchar(50);
+    _event_name         text;
     _event_date         timestamp;
-    _switch_last_event  timestamp;
 BEGIN
     _arrived = COALESCE(arrived,now()::timestamp);
 
@@ -48,11 +47,6 @@ BEGIN
             SET event_jsonb = jsonevent
             WHERE events_heartbeat_last.switch_id = _switch_id
         RETURNING id INTO out_id;
-    
-        SELECT e_event_date
-        INTO _switch_last_event
-        FROM events_heartbeat_last
-        WHERE id = out_id;
 
     ELSE
 
@@ -64,18 +58,8 @@ BEGIN
             , jsonevent
         ) RETURNING id INTO out_id;
     
-        SELECT e_event_date
-        INTO _switch_last_event
-        FROM events
-        WHERE id = out_id;
-    
     END IF;
-
-    UPDATE switches
-    SET last_event = _switch_last_event
-    WHERE id = out_id;
 
 COMMIT;
 END;
 $$
-
