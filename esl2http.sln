@@ -46,13 +46,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "conf", "conf", "{D0394543-8
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL", "SQL", "{E6629BA4-5E87-4848-A812-809E50FE0B01}"
-	ProjectSection(SolutionItems) = preProject
-		ProjectFiles\Postgres\SQL\init.sql = ProjectFiles\Postgres\SQL\init.sql
-		ProjectFiles\Postgres\SQL\init_http_post_handlers.sql = ProjectFiles\Postgres\SQL\init_http_post_handlers.sql
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tables", "Tables", "{5347FBEB-9F40-4446-8DAB-E9A5C52F2D6F}"
 	ProjectSection(SolutionItems) = preProject
+		ProjectFiles\Postgres\SQL\Tables\config.sql = ProjectFiles\Postgres\SQL\Tables\config.sql
 		ProjectFiles\Postgres\SQL\Tables\Events.sql = ProjectFiles\Postgres\SQL\Tables\Events.sql
 		ProjectFiles\Postgres\SQL\Tables\events_heartbeat_last.sql = ProjectFiles\Postgres\SQL\Tables\events_heartbeat_last.sql
 		ProjectFiles\Postgres\SQL\Tables\http_post_exceptions.sql = ProjectFiles\Postgres\SQL\Tables\http_post_exceptions.sql
@@ -66,6 +63,19 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Procedures", "Procedures", "{2AAA4918-4651-4F25-AEFC-E0ED6578FAD1}"
 	ProjectSection(SolutionItems) = preProject
 		ProjectFiles\Postgres\SQL\Procedures\usp_events_add.sql = ProjectFiles\Postgres\SQL\Procedures\usp_events_add.sql
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Functions", "Functions", "{74C411C7-AA3C-4E6D-9937-FD8D6FFE6854}"
+	ProjectSection(SolutionItems) = preProject
+		ProjectFiles\Postgres\SQL\Functions\fn_get_config.sql = ProjectFiles\Postgres\SQL\Functions\fn_get_config.sql
+		ProjectFiles\Postgres\SQL\Functions\fn_get_http_handlers.sql = ProjectFiles\Postgres\SQL\Functions\fn_get_http_handlers.sql
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Init", "Init", "{D6EEED03-A1E3-4075-BC58-0B69BFC41DCE}"
+	ProjectSection(SolutionItems) = preProject
+		ProjectFiles\Postgres\SQL\Init\init.sql = ProjectFiles\Postgres\SQL\Init\init.sql
+		ProjectFiles\Postgres\SQL\Init\init_config.sql = ProjectFiles\Postgres\SQL\Init\init_config.sql
+		ProjectFiles\Postgres\SQL\Init\init_http_post_handlers.sql = ProjectFiles\Postgres\SQL\Init\init_http_post_handlers.sql
 	EndProjectSection
 EndProject
 Global
@@ -95,6 +105,8 @@ Global
 		{E6629BA4-5E87-4848-A812-809E50FE0B01} = {4BBD88B0-CAF0-4DD4-9407-B454FA16CBB0}
 		{5347FBEB-9F40-4446-8DAB-E9A5C52F2D6F} = {E6629BA4-5E87-4848-A812-809E50FE0B01}
 		{2AAA4918-4651-4F25-AEFC-E0ED6578FAD1} = {E6629BA4-5E87-4848-A812-809E50FE0B01}
+		{74C411C7-AA3C-4E6D-9937-FD8D6FFE6854} = {E6629BA4-5E87-4848-A812-809E50FE0B01}
+		{D6EEED03-A1E3-4075-BC58-0B69BFC41DCE} = {E6629BA4-5E87-4848-A812-809E50FE0B01}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {792FCE1E-BF60-422B-BF97-91F784B7B686}
