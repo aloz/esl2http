@@ -13,11 +13,11 @@ BEGIN
     WHERE disabled IS NULL
     AND id NOT IN (
         SELECT
-            event_id
+            handler_id
         FROM
             http_post_statuses
         WHERE
-            NOT issuccess
+            NOT is_success
     )
     ORDER BY id;
 

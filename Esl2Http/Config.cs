@@ -1,10 +1,24 @@
-﻿using System;
+﻿using Esl2Http.Dal;
+using Esl2Http.Interfaces;
+using System;
 
 namespace Esl2Http
 {
     static class Config
     {
         const string CONST_ENV_PREFIX = "esl2http_";
+
+        static Tuple<int?> _ConfigFromDb;
+
+        static Config()
+        {
+            // hardcoded for postgres dal
+            using (IDal dal = new DalPostgres(DbConnectionString))
+            {
+                _ConfigFromDb = dal.GetConfig();
+            }
+        }
+        
         public static int EslRxBufferSize
         {
             get
@@ -38,6 +52,14 @@ namespace Esl2Http
                 if (string.IsNullOrEmpty(result))
                     result = "Host=localhost;Username=esl2http;Password=esl2http;Database=esl2http";
                 return result;
+            }
+        }
+
+        public static int? HttpTimeoutS
+        {
+            get
+            {
+                return _ConfigFromDb.Item1;
             }
         }
     }

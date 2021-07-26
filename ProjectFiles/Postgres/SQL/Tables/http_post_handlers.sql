@@ -9,4 +9,5 @@ CREATE TABLE http_post_handlers (
 	CONSTRAINT http_post_handlers_un_url UNIQUE (url)
 );
 CREATE INDEX http_post_handlers_last_posted_idx ON http_post_handlers USING btree (last_posted);
-CREATE INDEX http_post_handlers_last_statuscode_idx ON http_post_handlers USING btree (last_statuscode);
+CREATE INDEX http_post_handlers_statuscode_idx ON http_post_handlers USING btree (last_statuscode);
+CREATE INDEX http_post_handlers_disabled_idx ON http_post_handlers USING btree (disabled);

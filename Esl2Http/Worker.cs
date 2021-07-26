@@ -2,6 +2,7 @@ using Esl2Http.Interfaces;
 using Esl2Http.Parts.EslClient;
 using Esl2Http.Parts.EslEventQueue;
 using Esl2Http.Parts.EslEventQueueDbPersister;
+using Esl2Http.Parts.HttpPostWorker;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
@@ -20,6 +21,7 @@ namespace Esl2Http
         IEslClient _eslClient;
         IEslEventQueue _queue;
         IEslEventQueueDbPersister _queuePersister;
+        IHttpPostWorker _httpPostWorker;
 
         #endregion
 
@@ -42,7 +44,7 @@ namespace Esl2Http
 
                 _eslClient = new EslClient();
                 _eslClient.Start(
-                    EslClientLogDelegateCallback, 
+                    EslClientLogDelegateCallback,
                     EslClientResponseEslEventDelegateCallback,
                     Config.EslEventsToSubscribe,
                     Config.EslRxBufferSize);
@@ -51,6 +53,13 @@ namespace Esl2Http
                 _queuePersister.Start(
                     EslClientLogDelegateCallback,
                     _queue,
+                    Config.DbConnectionString
+                    );
+
+                _httpPostWorker = new HttpPostWorker();
+                _httpPostWorker.Start(
+                    EslClientLogDelegateCallback,
+                    Config.HttpTimeoutS,
                     Config.DbConnectionString
                     );
             }
@@ -134,8 +143,9 @@ namespace Esl2Http
             try { _eslClient.Dispose(); } catch { }
             _queuePersister.Stop();
             try { _queuePersister.Dispose(); } catch { }
-            _queue.Dispose();
             try { _queue.Dispose(); } catch { }
+            _httpPostWorker.Stop();
+            try { _httpPostWorker.Dispose(); } catch { }
         }
 
         public override void Dispose()

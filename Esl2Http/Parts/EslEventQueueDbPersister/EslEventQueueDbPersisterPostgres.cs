@@ -53,7 +53,7 @@ namespace Esl2Http.Parts.EslEventQueueDbPersister
                     IEslEventQueueItem EventItem = _queue.Dequeue();
                     if (EventItem != null)
                     {
-                        ulong? id= _dal.AddNewEvent(EventItem.Arrived, EventItem.EventContent);
+                        long? id= _dal.AddNewEvent(EventItem.Arrived, EventItem.EventContent);
                         if (!id.HasValue)
                             _LogDelegate($"Error to add event: {EventItem.EventContent}");
                     }

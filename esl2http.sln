@@ -52,7 +52,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tables", "Tables", "{5347FB
 		ProjectFiles\Postgres\SQL\Tables\config.sql = ProjectFiles\Postgres\SQL\Tables\config.sql
 		ProjectFiles\Postgres\SQL\Tables\Events.sql = ProjectFiles\Postgres\SQL\Tables\Events.sql
 		ProjectFiles\Postgres\SQL\Tables\events_heartbeat_last.sql = ProjectFiles\Postgres\SQL\Tables\events_heartbeat_last.sql
-		ProjectFiles\Postgres\SQL\Tables\http_post_exceptions.sql = ProjectFiles\Postgres\SQL\Tables\http_post_exceptions.sql
 		ProjectFiles\Postgres\SQL\Tables\http_post_handlers.sql = ProjectFiles\Postgres\SQL\Tables\http_post_handlers.sql
 		ProjectFiles\Postgres\SQL\Tables\http_post_statuses.sql = ProjectFiles\Postgres\SQL\Tables\http_post_statuses.sql
 		ProjectFiles\Postgres\SQL\Tables\switches.sql = ProjectFiles\Postgres\SQL\Tables\switches.sql
@@ -63,11 +62,14 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Procedures", "Procedures", "{2AAA4918-4651-4F25-AEFC-E0ED6578FAD1}"
 	ProjectSection(SolutionItems) = preProject
 		ProjectFiles\Postgres\SQL\Procedures\usp_events_add.sql = ProjectFiles\Postgres\SQL\Procedures\usp_events_add.sql
+		ProjectFiles\Postgres\SQL\Procedures\usp_events_set_as_posted.sql = ProjectFiles\Postgres\SQL\Procedures\usp_events_set_as_posted.sql
+		ProjectFiles\Postgres\SQL\Procedures\usp_is_resend_available.sql = ProjectFiles\Postgres\SQL\Procedures\usp_is_resend_available.sql
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Functions", "Functions", "{74C411C7-AA3C-4E6D-9937-FD8D6FFE6854}"
 	ProjectSection(SolutionItems) = preProject
 		ProjectFiles\Postgres\SQL\Functions\fn_get_config.sql = ProjectFiles\Postgres\SQL\Functions\fn_get_config.sql
+		ProjectFiles\Postgres\SQL\Functions\fn_get_events_topost.sql = ProjectFiles\Postgres\SQL\Functions\fn_get_events_topost.sql
 		ProjectFiles\Postgres\SQL\Functions\fn_get_http_handlers.sql = ProjectFiles\Postgres\SQL\Functions\fn_get_http_handlers.sql
 	EndProjectSection
 EndProject
