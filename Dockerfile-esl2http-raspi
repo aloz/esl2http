@@ -1,9 +1,4 @@
-# The most lightweigh image
-# NB: RUN commands are joined
-# to optimize container build process
-# by decreasing number of layers
-# taking into account layers caching behavior
-FROM alpine:3.12
+FROM mcr.microsoft.com/dotnet/sdk:5.0
 
 LABEL description="FreeSWITCH Esl2Http cross-platform adapter microservice"
 LABEL author=aloz
@@ -17,31 +12,17 @@ ARG DIR_PUBLISH=/opt
 ARG MICROSVC_NAME=Esl2Http
 ARG MICROSVC_USER=Esl2Http
 
-ARG DOTNET_VERSION=5.0
-ARG DOTNET_INSTALL_DIR=/usr/share/dotnet
-
 ################ Build arguments ################
 
 # Applying the latest updates
 # Installing dotnet prepequesites
-RUN apk update && \
-    apk upgrade -a && \
-    apk add bash icu-libs krb5-libs libgcc libintl libssl1.1 libstdc++ zlib
+RUN apt-get update && \
+    apt-get --yes dist-upgrade
 
 # The user to run the microservice
-RUN adduser -D -S -g "FreeSWITCH Esl2Http cross-platform adapter microservice" $MICROSVC_USER
+RUN adduser --disabled-password --system --gecos "FreeSWITCH Esl2Http cross-platform adapter microservice" --force-badname $MICROSVC_USER
 
 WORKDIR $DIR_BUILD
-
-# Installing .NET SDK by the oficial Microsoft online script
-# This script depends on wget as far as I see
-# If the script is changed then update wget as well
-ADD https://dot.net/v1/dotnet-install.sh .
-RUN chmod +x dotnet-install.sh && \
-    apk add wget && \
-    ./dotnet-install.sh --channel $DOTNET_VERSION --install-dir $DOTNET_INSTALL_DIR && \
-    chown -R $MICROSVC_USER $DOTNET_INSTALL_DIR
-ENV PATH=$PATH:$DOTNET_INSTALL_DIR
 
 # Copying microservice sources
 WORKDIR $DIR_BUILD/src/$MICROSVC_NAME
@@ -54,7 +35,6 @@ COPY $MICROSVC_NAME.Private $MICROSVC_NAME.Private
 RUN dotnet restore $MICROSVC_NAME.sln && \
     dotnet build $MICROSVC_NAME.sln -c Release -o $DIR_BUILD/build/$MICROSVC_NAME && \
     dotnet publish $MICROSVC_NAME.sln -c Release -o $DIR_PUBLISH/$MICROSVC_NAME && \
-    chown -R $MICROSVC_USER $DOTNET_INSTALL_DIR && \
     rm -rf $DIR_BUILD
 
 USER $MICROSVC_USER

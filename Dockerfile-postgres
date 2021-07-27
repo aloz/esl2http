@@ -1,4 +1,4 @@
-FROM alpine
+FROM alpine:3.12
 
 LABEL description="Esl2Http postgres"
 LABEL author=aloz
@@ -13,13 +13,12 @@ ARG SQL_SCRIPTS_DIR=/tmp/sql-esl2http
 # Applying the latest updates
 # Installing dotnet prepequesites
 RUN apk update && \
-    apk upgrade && \
+    apk upgrade -a && \
     apk add postgresql
-#    apk add bash mc
 
 EXPOSE 5432/tcp
 
-RUN mkdir -p $VOL_DATA_PGSQL/data && \
+RUN mkdir $VOL_DATA_PGSQL && \
     mkdir /run/postgresql && \
     mkdir $SQL_SCRIPTS_DIR && \
     chown -R postgres $VOL_DATA_PGSQL && \
@@ -28,12 +27,11 @@ RUN mkdir -p $VOL_DATA_PGSQL/data && \
 # Copy SQL scripts
 COPY ProjectFiles/Postgres/SQL $SQL_SCRIPTS_DIR
 
-VOLUME $VOL_DATA_PGSQL
-WORKDIR $VOL_DATA_PGSQL/data
-
 # First DB start to initialize data
 USER postgres
 RUN pg_ctl initdb -D $VOL_DATA_PGSQL/data
+
+WORKDIR $VOL_DATA_PGSQL/data
 
 # Copy config files
 # Set ownership on the configs and SQL scripts
@@ -48,34 +46,35 @@ RUN chown postgres pg_hba.conf && \
 USER postgres
 
 RUN pg_ctl start -D $VOL_DATA_PGSQL/data -l $VOL_DATA_PGSQL/data/log.log && \
-
+\
     psql -f $SQL_SCRIPTS_DIR/Init/init.sql && \
-
+\
     psql -U esl2http -d esl2http -f $SQL_SCRIPTS_DIR/Tables/config.sql && \
-
+\
     psql -U esl2http -d esl2http -f $SQL_SCRIPTS_DIR/Tables/switches.sql && \
     psql -U esl2http -d esl2http -f $SQL_SCRIPTS_DIR/Tables/events_heartbeat_last.sql && \
     psql -U esl2http -d esl2http -f $SQL_SCRIPTS_DIR/Tables/events.sql && \
     psql -U esl2http -d esl2http -f $SQL_SCRIPTS_DIR/Tables/http_post_handlers.sql && \
     psql -U esl2http -d esl2http -f $SQL_SCRIPTS_DIR/Tables/http_post_statuses.sql && \
-
+\
     psql -U esl2http -d esl2http -f $SQL_SCRIPTS_DIR/Procedures/usp_events_add.sql && \
     psql -U esl2http -d esl2http -f $SQL_SCRIPTS_DIR/Procedures/usp_events_set_as_posted.sql && \
     psql -U esl2http -d esl2http -f $SQL_SCRIPTS_DIR/Procedures/usp_is_resend_available.sql  && \
-    psql -U esl2http -d esl2http -f $SQL_SCRIPTS_DIR/Procedures/usp_events_set_to_resend.sql   && \
-
+    psql -U esl2http -d esl2http -f $SQL_SCRIPTS_DIR/Procedures/usp_events_set_to_resend.sql && \
+\
     psql -U esl2http -d esl2http -f $SQL_SCRIPTS_DIR/Functions/fn_get_config.sql && \
     psql -U esl2http -d esl2http -f $SQL_SCRIPTS_DIR/Functions/fn_get_http_handlers.sql && \
     psql -U esl2http -d esl2http -f $SQL_SCRIPTS_DIR/Functions/fn_get_events_topost.sql && \
     psql -U esl2http -d esl2http -f $SQL_SCRIPTS_DIR/Functions/fn_get_http_handlers_torepost.sql && \
-    psql -U esl2http -d esl2http -f $SQL_SCRIPTS_DIR/Functions/fn_get_events_torepost.sql  && \
-
+    psql -U esl2http -d esl2http -f $SQL_SCRIPTS_DIR/Functions/fn_get_events_torepost.sql && \
+\
     psql -U esl2http -d esl2http -f $SQL_SCRIPTS_DIR/Init/init_config.sql && \
     psql -U esl2http -d esl2http -f $SQL_SCRIPTS_DIR/Init/init_http_post_handlers.sql && \
-
+\
     pg_ctl stop -D $VOL_DATA_PGSQL/data && \
     rm -rf $SQL_SCRIPTS_DIR
 
+VOLUME $VOL_DATA_PGSQL
+
 ENV ENTRYPOINT_postgres=$VOL_DATA_PGSQL/data
 ENTRYPOINT postgres -D $ENTRYPOINT_postgres
-

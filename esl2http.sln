@@ -14,8 +14,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{C9CF54
 	ProjectSection(SolutionItems) = preProject
 		.dockerignore = .dockerignore
 		Dockerfile-esl2http = Dockerfile-esl2http
+		Dockerfile-esl2http-raspi = Dockerfile-esl2http-raspi
 		Dockerfile-postgres = Dockerfile-postgres
 		ProjectFiles\Docker\esl2http-docker-compose.cmd = ProjectFiles\Docker\esl2http-docker-compose.cmd
+		ProjectFiles\Docker\esl2http-docker-compose.sh = ProjectFiles\Docker\esl2http-docker-compose.sh
+		esl2http-raspi.yaml = esl2http-raspi.yaml
 		esl2http.env = esl2http.env
 		esl2http.yaml = esl2http.yaml
 	EndProjectSection
@@ -23,19 +26,29 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.postgres", "1.postgres", "{016C4F9D-21F6-449C-A04E-CEDE922B71C1}"
 	ProjectSection(SolutionItems) = preProject
 		ProjectFiles\Docker\1.postgres\1.delete-objects.cmd = ProjectFiles\Docker\1.postgres\1.delete-objects.cmd
+		ProjectFiles\Docker\1.postgres\1.delete-objects.sh = ProjectFiles\Docker\1.postgres\1.delete-objects.sh
 		ProjectFiles\Docker\1.postgres\2.build-image.cmd = ProjectFiles\Docker\1.postgres\2.build-image.cmd
+		ProjectFiles\Docker\1.postgres\2.build-image.sh = ProjectFiles\Docker\1.postgres\2.build-image.sh
 		ProjectFiles\Docker\1.postgres\3.run-container.cmd = ProjectFiles\Docker\1.postgres\3.run-container.cmd
+		ProjectFiles\Docker\1.postgres\3.run-container.sh = ProjectFiles\Docker\1.postgres\3.run-container.sh
 		ProjectFiles\Docker\1.postgres\4.attach-container.cmd = ProjectFiles\Docker\1.postgres\4.attach-container.cmd
+		ProjectFiles\Docker\1.postgres\4.attach-container.sh = ProjectFiles\Docker\1.postgres\4.attach-container.sh
 		ProjectFiles\Docker\1.postgres\5.stop-container.cmd = ProjectFiles\Docker\1.postgres\5.stop-container.cmd
+		ProjectFiles\Docker\1.postgres\5.stop-container.sh = ProjectFiles\Docker\1.postgres\5.stop-container.sh
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.esl2http", "2.esl2http", "{52585D77-17D0-40D8-9FAD-22BD817786C3}"
 	ProjectSection(SolutionItems) = preProject
 		ProjectFiles\Docker\2.esl2http\1.delete-objects.cmd = ProjectFiles\Docker\2.esl2http\1.delete-objects.cmd
+		ProjectFiles\Docker\2.esl2http\1.delete-objects.sh = ProjectFiles\Docker\2.esl2http\1.delete-objects.sh
+		ProjectFiles\Docker\2.esl2http\2.build-image-raspi.sh = ProjectFiles\Docker\2.esl2http\2.build-image-raspi.sh
 		ProjectFiles\Docker\2.esl2http\2.build-image.cmd = ProjectFiles\Docker\2.esl2http\2.build-image.cmd
 		ProjectFiles\Docker\2.esl2http\3.run-container.cmd = ProjectFiles\Docker\2.esl2http\3.run-container.cmd
+		ProjectFiles\Docker\2.esl2http\3.run-container.sh = ProjectFiles\Docker\2.esl2http\3.run-container.sh
 		ProjectFiles\Docker\2.esl2http\4.attach-container.cmd = ProjectFiles\Docker\2.esl2http\4.attach-container.cmd
+		ProjectFiles\Docker\2.esl2http\4.attach-container.sh = ProjectFiles\Docker\2.esl2http\4.attach-container.sh
 		ProjectFiles\Docker\2.esl2http\5.stop-container.cmd = ProjectFiles\Docker\2.esl2http\5.stop-container.cmd
+		ProjectFiles\Docker\2.esl2http\5.stop-container.sh = ProjectFiles\Docker\2.esl2http\5.stop-container.sh
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Postgres", "Postgres", "{4BBD88B0-CAF0-4DD4-9407-B454FA16CBB0}"

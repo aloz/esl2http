@@ -102,6 +102,7 @@ namespace Esl2Http.Parts.HttpPostWorker
                                     }
                                     catch (Exception ex)
                                     {
+                                        _LogDelegate(this.GetType(), ex.ToString(), LogType.Error);
                                         _dal.SetEventAsPosted(EventToPost.Item1, url, null, ex.ToString());
                                         System.Threading.Thread.Sleep(1000);
                                     }

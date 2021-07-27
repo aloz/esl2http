@@ -17,7 +17,7 @@ services:
   esl2http:
     build:
       context: .
-      dockerfile: Dockerfile-esl2http
+      dockerfile: Dockerfile-esl2http-raspi
     image: esl2http
     container_name: esl2http
     env_file: esl2http.env
