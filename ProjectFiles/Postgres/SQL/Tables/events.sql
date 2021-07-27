@@ -11,4 +11,4 @@ CREATE TABLE events (
 CREATE INDEX events_is_valid_idx ON events USING btree (is_valid);
 
 ALTER TABLE events ADD CONSTRAINT events_fk_switch_core_id FOREIGN KEY (e_core_uuid) REFERENCES switches(core_uuid);
-ALTER TABLE events ADD CONSTRAINT events_fk_switch_id FOREIGN KEY (switch_id) REFERENCES switches(id);
+ALTER TABLE events ADD CONSTRAINT events_fk_switch_id FOREIGN KEY (switch_id) REFERENCES switches(id); 
