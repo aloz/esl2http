@@ -21,7 +21,7 @@ namespace Esl2Http.Parts.EslEventQueue
 
         #endregion
 
-        #region EslEventQueue members
+        #region IEslEventQueue members
 
         public void Enqueue(string EventContent)
         {
@@ -64,10 +64,24 @@ namespace Esl2Http.Parts.EslEventQueue
 
         #endregion
 
+        #region Private members
+
+        private void ClearQueue()
+        {
+            lock (_objSyncQueue)
+            {
+                lock (_objSyncQueue)
+                {
+                    _queue.Clear();
+                }
+            }
+        }
+
+        #endregion
+
         public void Dispose()
         {
-            //TODO ???
-            _queue.Clear();
+            try { ClearQueue(); } catch { }
         }
     }
 }

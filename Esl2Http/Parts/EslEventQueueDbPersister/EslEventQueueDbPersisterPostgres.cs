@@ -1,14 +1,8 @@
 ﻿using Esl2Http.Base;
 using Esl2Http.Dal;
-using Esl2Http.Delegates;
 using Esl2Http.Interfaces;
-using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Esl2Http.Delegates.EslClientDelegates;
+using static Esl2Http.Delegates.Log;
 
 namespace Esl2Http.Parts.EslEventQueueDbPersister
 {
@@ -16,22 +10,22 @@ namespace Esl2Http.Parts.EslEventQueueDbPersister
     {
         #region Args from Start
 
-        EslClientLogDelegate _LogDelegate;
+        LogDelegate _LogDelegate;
         IEslEventQueue _queue;
-        IDal _dal;
+        string _ConnectionString;
 
         #endregion
 
         #region IEslEventQueueDbPersister members
 
         public void Start(
-            EslClientLogDelegate LogDelegate,
+            LogDelegate LogDelegate,
             IEslEventQueue queue,
             string ConnectionString)
         {
             _LogDelegate = LogDelegate;
             _queue = queue;
-            _dal = new DalPostgres(ConnectionString);
+            _ConnectionString = ConnectionString;
             base.StartWorker();
         }
 
@@ -46,21 +40,33 @@ namespace Esl2Http.Parts.EslEventQueueDbPersister
 
         protected override void Worker()
         {
-            while (!IsEx)
+            using (IDal dal = new DalPostgres(_ConnectionString))
             {
-                while (_queue.QueueCount > 0)
+                while (!IsEx)
                 {
-                    IEslEventQueueItem EventItem = _queue.Dequeue();
-                    if (EventItem != null)
+                    try
                     {
-                        long? id= _dal.AddNewEvent(EventItem.Arrived, EventItem.EventContent);
-                        if (!id.HasValue)
-                            _LogDelegate($"Error to add event: {EventItem.EventContent}");
+                        while (_queue.QueueCount > 0)
+                        {
+                            IEslEventQueueItem EventItem = _queue.Dequeue();
+                            if (EventItem != null)
+                            {
+                                long? id = dal.AddNewEvent(EventItem.Arrived, EventItem.EventContent);
+                                if (!id.HasValue)
+                                    _LogDelegate(this.GetType(), $"Error to add event: {EventItem.EventContent}");
+                            }
+                            _LogDelegate(this.GetType(), $"{_queue.QueueCount} event(s) in memory Queue");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        _LogDelegate(this.GetType(), ex.ToString(), LogType.Error);
+                        System.Threading.Thread.Sleep(1000);
                     }
                 }
             }
-            try { _dal.Dispose(); } catch { }
         }
+
         #endregion
 
         public void Dispose()

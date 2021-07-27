@@ -1,13 +1,12 @@
-﻿using Esl2Http.Base;
-using System;
-using static Esl2Http.Delegates.EslClientDelegates;
+﻿using System;
+using static Esl2Http.Delegates.Log;
 
 namespace Esl2Http.Interfaces
 {
     interface IEslEventQueueDbPersister : IDisposable
     {
         void Start(
-            EslClientLogDelegate LogDelegate,
+            LogDelegate LogDelegate,
             IEslEventQueue queue,
             string ConnectionString);
 

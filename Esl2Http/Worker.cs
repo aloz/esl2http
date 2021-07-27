@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using static Esl2Http.Delegates.EslClientDelegates;
+using static Esl2Http.Delegates.Log;
 
 namespace Esl2Http
 {
@@ -44,21 +44,21 @@ namespace Esl2Http
 
                 _eslClient = new EslClient();
                 _eslClient.Start(
-                    EslClientLogDelegateCallback,
+                    LogDelegateCallback,
                     EslClientResponseEslEventDelegateCallback,
                     Config.EslEventsToSubscribe,
                     Config.EslRxBufferSize);
 
                 _queuePersister = new EslEventQueueDbPersisterPostgres();
                 _queuePersister.Start(
-                    EslClientLogDelegateCallback,
+                    LogDelegateCallback,
                     _queue,
                     Config.DbConnectionString
                     );
 
                 _httpPostWorker = new HttpPostWorker();
                 _httpPostWorker.Start(
-                    EslClientLogDelegateCallback,
+                    LogDelegateCallback,
                     Config.HttpTimeoutS,
                     Config.DbConnectionString
                     );
@@ -66,11 +66,10 @@ namespace Esl2Http
 
             while (!stoppingToken.IsCancellationRequested)
             {
-                CheckThreadsAlive();
                 await Task.Delay(1000, stoppingToken);
             }
 
-            WriteToConsoleLog("Exit signal", EslClientLogType.Warning);
+            WriteToConsoleLog("Exit signal", LogType.Warning);
         }
         public override Task StopAsync(CancellationToken cancellationToken)
         {
@@ -82,29 +81,29 @@ namespace Esl2Http
 
         #region Console logging and delegates
 
-        private void WriteToConsoleLog(string str, EslClientLogType LogType = EslClientLogType.Information)
+        private void WriteToConsoleLog(string str, LogType LogType = LogType.Information)
         {
             string logstr = $"{DateTime.UtcNow}\t{str}";
             if (!logstr.EndsWith("\n"))
                 logstr += "\n";
             switch (LogType)
             {
-                case EslClientLogType.Information:
+                case LogType.Information:
                     {
                         _logger.LogInformation(logstr);
                         break;
                     }
-                case EslClientLogType.Warning:
+                case LogType.Warning:
                     {
                         _logger.LogWarning(logstr);
                         break;
                     }
-                case EslClientLogType.Error:
+                case LogType.Error:
                     {
                         _logger.LogError(logstr);
                         break;
                     }
-                case EslClientLogType.Critical:
+                case LogType.Critical:
                     {
                         _logger.LogCritical(logstr);
                         break;
@@ -117,28 +116,23 @@ namespace Esl2Http
             }
         }
 
-        private void EslClientLogDelegateCallback(string str, EslClientLogType LogType)
+        private void LogDelegateCallback(Type sender, string str, LogType LogType)
         {
-            WriteToConsoleLog(str, LogType);
+            WriteToConsoleLog($"[{sender.Name}] {str}", LogType);
         }
 
         public void EslClientResponseEslEventDelegateCallback(string str)
         {
             WriteToConsoleLog(str);
             _queue.Enqueue(str);
-            WriteToConsoleLog($"{_queue.QueueCount } event(s) in Queue");
+            WriteToConsoleLog($"{_queue.QueueCount } event(s) in memory Queue");
         }
 
         #endregion
 
-        private void CheckThreadsAlive()
-        {
-            // TODO
-        }
-
         void StopAndDisposeParts()
         {
-            // TODO all my IDisposable
+            // all my IDisposable
             _eslClient.Stop();
             try { _eslClient.Dispose(); } catch { }
             _queuePersister.Stop();

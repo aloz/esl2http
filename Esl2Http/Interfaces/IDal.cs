@@ -5,7 +5,6 @@ namespace Esl2Http.Interfaces
 {
     interface IDal : IDisposable
     {
-        // TODO
         long? AddNewEvent(DateTime arrived, string jsonevent);
 
         string[] GetHttpHandlers();
