@@ -76,6 +76,34 @@ namespace Esl2Http.Dal
 
             return result;
         }
+
+        public string[] GetHttpHandlersToRepost()
+        {
+            string[] result = null;
+            List<string> lstResult = new List<string>();
+
+            using (NpgsqlConnection cn = new NpgsqlConnection(_connectionString))
+            {
+                cn.Open();
+                using (NpgsqlCommand cmd = cn.CreateCommand())
+                {
+                    cmd.CommandText = "select * from fn_get_http_handlers_torepost();";
+                    using (NpgsqlDataReader rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            lstResult.Add(Convert.ToString(rdr["url"]));
+                        }
+                        rdr.Close();
+                        result = lstResult.ToArray();
+                    }
+                }
+                cn.Close();
+            }
+
+            return result;
+        }
+
         public Tuple<int?> GetConfig()
         {
             Tuple<int?> result;
@@ -115,6 +143,31 @@ namespace Esl2Http.Dal
                 using (NpgsqlCommand cmd = cn.CreateCommand())
                 {
                     cmd.CommandText = "select * from fn_get_events_topost(@url);";
+                    cmd.Parameters.AddWithValue("url", NpgsqlTypes.NpgsqlDbType.Text, url);
+                    using (NpgsqlDataReader rdr = cmd.ExecuteReader())
+                    {
+                        if (rdr.Read())
+                        {
+                            result.Add(Tuple.Create<long, string>((long)rdr["event_id"], (string)rdr["event_jsonb"]));
+                        }
+                        rdr.Close();
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public List<Tuple<long, string>> GetEventsToRepost(string url)
+        {
+            List<Tuple<long, string>> result = new List<Tuple<long, string>>();
+
+            using (NpgsqlConnection cn = new NpgsqlConnection(_connectionString))
+            {
+                cn.Open();
+                using (NpgsqlCommand cmd = cn.CreateCommand())
+                {
+                    cmd.CommandText = "select * from fn_get_events_torepost(@url);";
                     cmd.Parameters.AddWithValue("url", NpgsqlTypes.NpgsqlDbType.Text, url);
                     using (NpgsqlDataReader rdr = cmd.ExecuteReader())
                     {

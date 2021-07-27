@@ -22,6 +22,7 @@ namespace Esl2Http
         IEslEventQueue _queue;
         IEslEventQueueDbPersister _queuePersister;
         IHttpPostWorker _httpPostWorker;
+        IHttpPostWorker _httpRepostWorker;
 
         #endregion
 
@@ -58,6 +59,13 @@ namespace Esl2Http
 
                 _httpPostWorker = new HttpPostWorker();
                 _httpPostWorker.Start(
+                    LogDelegateCallback,
+                    Config.HttpTimeoutS,
+                    Config.DbConnectionString
+                    );
+
+                _httpRepostWorker = new HttpRepostWorker();
+                _httpRepostWorker.Start(
                     LogDelegateCallback,
                     Config.HttpTimeoutS,
                     Config.DbConnectionString
@@ -132,13 +140,14 @@ namespace Esl2Http
 
         void StopAndDisposeParts()
         {
-            // all my IDisposable
-            _eslClient.Stop();
+            try { _eslClient.Stop(); } catch { }
             try { _eslClient.Dispose(); } catch { }
-            _queuePersister.Stop();
+            try { _queuePersister.Stop(); } catch { }
             try { _queuePersister.Dispose(); } catch { }
             try { _queue.Dispose(); } catch { }
-            _httpPostWorker.Stop();
+            try { _httpPostWorker.Stop(); } catch { }
+            try { _httpPostWorker.Dispose(); } catch { }
+            try { _httpRepostWorker.Stop(); } catch { }
             try { _httpPostWorker.Dispose(); } catch { }
         }
 

@@ -15,6 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{C9CF54
 		.dockerignore = .dockerignore
 		Dockerfile-esl2http = Dockerfile-esl2http
 		Dockerfile-postgres = Dockerfile-postgres
+		ProjectFiles\Docker\esl2http-docker-compose.cmd = ProjectFiles\Docker\esl2http-docker-compose.cmd
 		esl2http.env = esl2http.env
 		esl2http.yaml = esl2http.yaml
 	EndProjectSection
@@ -63,6 +64,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Procedures", "Procedures", 
 	ProjectSection(SolutionItems) = preProject
 		ProjectFiles\Postgres\SQL\Procedures\usp_events_add.sql = ProjectFiles\Postgres\SQL\Procedures\usp_events_add.sql
 		ProjectFiles\Postgres\SQL\Procedures\usp_events_set_as_posted.sql = ProjectFiles\Postgres\SQL\Procedures\usp_events_set_as_posted.sql
+		ProjectFiles\Postgres\SQL\Procedures\usp_events_set_to_resend.sql = ProjectFiles\Postgres\SQL\Procedures\usp_events_set_to_resend.sql
 		ProjectFiles\Postgres\SQL\Procedures\usp_is_resend_available.sql = ProjectFiles\Postgres\SQL\Procedures\usp_is_resend_available.sql
 	EndProjectSection
 EndProject
@@ -70,7 +72,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Functions", "Functions", "{
 	ProjectSection(SolutionItems) = preProject
 		ProjectFiles\Postgres\SQL\Functions\fn_get_config.sql = ProjectFiles\Postgres\SQL\Functions\fn_get_config.sql
 		ProjectFiles\Postgres\SQL\Functions\fn_get_events_topost.sql = ProjectFiles\Postgres\SQL\Functions\fn_get_events_topost.sql
+		ProjectFiles\Postgres\SQL\Functions\fn_get_events_torepost.sql = ProjectFiles\Postgres\SQL\Functions\fn_get_events_torepost.sql
 		ProjectFiles\Postgres\SQL\Functions\fn_get_http_handlers.sql = ProjectFiles\Postgres\SQL\Functions\fn_get_http_handlers.sql
+		ProjectFiles\Postgres\SQL\Functions\fn_get_http_handlers_torepost.sql = ProjectFiles\Postgres\SQL\Functions\fn_get_http_handlers_torepost.sql
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Init", "Init", "{D6EEED03-A1E3-4075-BC58-0B69BFC41DCE}"
@@ -78,6 +82,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Init", "Init", "{D6EEED03-A
 		ProjectFiles\Postgres\SQL\Init\init.sql = ProjectFiles\Postgres\SQL\Init\init.sql
 		ProjectFiles\Postgres\SQL\Init\init_config.sql = ProjectFiles\Postgres\SQL\Init\init_config.sql
 		ProjectFiles\Postgres\SQL\Init\init_http_post_handlers.sql = ProjectFiles\Postgres\SQL\Init\init_http_post_handlers.sql
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Other", "Other", "{F610E4D1-A832-4517-809E-58735BF80502}"
+	ProjectSection(SolutionItems) = preProject
+		ProjectFiles\Postgres\SQL\Other\example-resend.sql = ProjectFiles\Postgres\SQL\Other\example-resend.sql
+		ProjectFiles\Postgres\SQL\Other\my-test-queries.sql = ProjectFiles\Postgres\SQL\Other\my-test-queries.sql
 	EndProjectSection
 EndProject
 Global
@@ -109,6 +119,7 @@ Global
 		{2AAA4918-4651-4F25-AEFC-E0ED6578FAD1} = {E6629BA4-5E87-4848-A812-809E50FE0B01}
 		{74C411C7-AA3C-4E6D-9937-FD8D6FFE6854} = {E6629BA4-5E87-4848-A812-809E50FE0B01}
 		{D6EEED03-A1E3-4075-BC58-0B69BFC41DCE} = {E6629BA4-5E87-4848-A812-809E50FE0B01}
+		{F610E4D1-A832-4517-809E-58735BF80502} = {E6629BA4-5E87-4848-A812-809E50FE0B01}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {792FCE1E-BF60-422B-BF97-91F784B7B686}

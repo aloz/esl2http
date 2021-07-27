@@ -50,6 +50,7 @@ BEGIN
             posted          = _utcnow
             , statuscode    = _statuscode
             , reason_phrase = _reason_phrase
+            , need_resend   = FALSE
         WHERE http_post_statuses.event_id = _event_id AND http_post_statuses.handler_id = _handler_id
     RETURNING id INTO out_id;
 
