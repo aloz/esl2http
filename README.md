@@ -239,5 +239,7 @@ Of cause the POST verb. According the REST principes (a new item that changes th
   Best regards,
          
   Anton Lozovskyi
+         
+p.s. Sorry for the typos - it was 3 weeks to design and to develop non stop.
   #
  Solution copyright (c) by me
