@@ -27,6 +27,8 @@ I have used my own FreeSWITCH 1.10 to test, the latest production edition.
 Both containers are under Alpine Linux - the most lightest Linux. Dockerfiles contain a little number of layers as little as possible. The microservice is Linux executable, made as a cross-platform application (can be compiled to Windows executable as well) with using of .net 5, building from the sources when the Docker Image is building, that makes possible to hard-code into the assembly for security purposes the most critical credentials - ESL password and the FreeSWITCH ESL host and port, to avoid to leak it by DevOps engineers or anybody who are not authorized to have ESL access there.
 </p>
 
+I've used Visual Studio 2022 IDE to write the code.
+
 Some key points of the microservice design:
 - Containers must be as little as possible, with as little as possible numbers of layers;
 - Asynchronious design is required, to minimize blocking on high-load, to avoid performance degradation;
@@ -40,7 +42,11 @@ Some key points of the microservice design:
  - `STDOUT` logs should be as much as readable are be clear to understand what is going on;
  - Received ESL events should not be lost, they should be sent in order according the event time containing into it;
  - <p align="justify">Integrity is not guaranteed on the incoming ESL TCP stream, some data could be lost (possible this is network buffer and performance issue) during the continious events receiving. It was a very strange but reproduced only inside the Docker container, and not into debugger on IDE (it could be reproducible only if to stay a long time into the breakpoint, while the data arrived and nothing read it) So after the blind fix, with understanding the reason - it never reproduced after.
-- TODO - a different VOLUME behavior
+
+Also, a different behavior in Dockerfile-postgres with VOLUME is reproduced when I build it under Docker Desktop and under regular Docker under Linux.
+This image is built successfully with docker desktop, but with regular docker on Linux, even when the docker versions are the same - built with an error:
+postgres could not to create database directory. No files were after it was built. The fix was to declare VOLUME in the docker file right after all the data are saved
+to the destination, and after to mount the volume (you can check the history of that file)
 
 
 TODO TODO TODO
