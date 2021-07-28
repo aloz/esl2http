@@ -9,7 +9,7 @@ First of all I would like to thank ImpacTech for the interesting task to design 
 I have used my own FreeSWITCH 1.10 to test, the latest production edition.
 
 <p align="justify">
-Both containers are under Alpine Linux - the most lightest Linux. Dockerfiles contain a little number of layers as little as possible. The microservice is Linux executable, made as a cross-platform application (can be compiled to Windows executable as well) with using of .net 5, building from the sources when the Docker Image is building, that makes possible to hard-code into the binary for security purposes the most critical credentials - ESL password and the FreeSWITCH ESL host and port, to avoid to leak it by DevOps engineers or anybody who are not authorized to have ESL access there.
+Both containers are under Alpine Linux - the most lightest Linux. Dockerfiles contain a little number of layers as little as possible. The microservice is Linux executable, made as a cross-platform application (can be compiled to Windows executable as well) with using of .net 5, building from the sources when the Docker Image is building, that makes possible to hard-code into the assembly for security purposes the most critical credentials - ESL password and the FreeSWITCH ESL host and port, to avoid to leak it by DevOps engineers or anybody who are not authorized to have ESL access there.
 </p>
 
 Some key points of the microservice design:
@@ -47,12 +47,12 @@ It's very easy to copy/paste to a new string to add a new endpoint before creati
 #
 ![](ProjectFiles/README-private.png)
 
-Microservice source code. There're 2 assemblies: microservice executable, and microservice secrets. This is for security purposes, to avoid ESL credentials leak by the persons who can maintain this microservice, but must not have an access to the ESL credentials. To avoid fraud, especially IPRN fraud (to connect to ESL, to type something like `bgapi originate sofia/external/iprn_1_dollar_per_minute@regular_termination_provider &park` a lot of time and enjoy the account balance 😁) So, by design, one microservice can be connected to one FreeSWITCH only (but this is possible to extend, for now this is out of scope) and one image is given to DevOps after it built. Next - DevOps can maintain the container, based on the ready image, without knowing the credentials of how to connect to the FreeSWITCH box. This is very simple: just need to type the credentials into the source code `Esl2Http.Private/Secret.cs`
+Microservice source code. There're 2 assemblies: microservice executable, and microservice secrets. This is for security purposes, to avoid ESL credentials leak by the persons who can maintain this microservice, but must not have an access to the ESL credentials. To avoid fraud, especially IPRN fraud (to connect to ESL, to type something like `bgapi originate sofia/external/iprn_1_dollar_per_minute@regular_termination_provider &park` a lot of time and enjoy the account balance 😁) So, by design, one microservice can be connected to one FreeSWITCH only (but it's possible to extend, for now it's out of scope) and the image is given to DevOps after it built. Next - DevOps can maintain the container, based on the ready image, without knowing the credentials of how to connect to the FreeSWITCH box. This is very simple: just need to type the credentials into the source code `Esl2Http.Private/Secret.cs`
 ```c#
         public const string CONST_SECRETS_EslHostPort = "esl_host[:port]";
         public const string CONST_SECRETS_EslPassword = "esl_password";
 ```
-They are empty by default and must be typed. This is very simple, on syntax error the microservice image will not be built. So, the microservice binaries are build from the sources on image creation. Please check the `Dockerfile-esl2http` for more information.
+They are empty by default and must be provided with the valid data. On syntax error the microservice image will not be built. So, the microservice binaries are build from the sources on image creation, handling ESL credentials inside the assembly. Please check the `Dockerfile-esl2http` for more information.
 #
 #### Database design
 ![](ProjectFiles/README-esl2http-er.png)
