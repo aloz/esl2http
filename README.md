@@ -32,7 +32,7 @@ TODO TODO TODO
 #### Repository structure
 ![](ProjectFiles/README-docker.png)
 
-Docker related files. There're Dockerfiles, docker-compose .yaml files, docker compose shell/command files, single docker container shell/command files to delete, build, run, attach and stop containers (i.e. for test purposes - to create and to start just a Postgres container, and to connect to the database from DBeaver or from IDE under debugger)
+Docker related files. There're Dockerfiles, docker-compose .yaml files, docker compose shell/command files, single docker container shell/command files to delete, build, run, attach and stop containers (i.e. for test purposes - to create and to start just a Postgres container, and to connect to the database from DBeaver or from IDE when debugging the microservice)
 #
 ![](ProjectFiles/README-postgres.png)
 
