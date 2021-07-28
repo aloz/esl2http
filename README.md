@@ -97,7 +97,7 @@ I will explain later why it should be.
 **So, test ESL first, and try to conversate with the FreeSWITCH by manually:**
 
 1. Open you favorite Telnet client (i.e. [XShell](https://www.netsarang.com/en/free-for-home-school/)) and try to connect to the ESL port;
-2. Do authorization: type `auth` `esl_password` **[enter] [enter]**;
+2. Do authorization: type `auth <esl_password>` **[enter] [enter]**;
 3. Wait for positive response or FreeSWITCH will terminate the session on wrong password / ACL rules;
 4. Subscribe to `HEARTBEAT` event: type 'event json heartbeat' **[enter] [enter]**;
 5. Enjoy `HEARTBEAT` events that are sending every 20 seconds;
@@ -111,5 +111,7 @@ I will explain later why it should be.
   208 }
 ```
 6. Type `exit` to finish the session.
+
+How to setup ESL access on FreeSWITCH is out of scope. Please read the documentation.
 
 If you successfully passed the steps above - you can configure and build the microservice.
