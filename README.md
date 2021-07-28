@@ -96,6 +96,8 @@ I will explain later why it should be.
 
 **So, test ESL first, and try to conversate with the FreeSWITCH by manually:**
 
+I assume that you already have FreeSWITCH with configured inbound ESL access.
+
 1. Open you favorite Telnet client (i.e. [XShell](https://www.netsarang.com/en/free-for-home-school/)) and try to connect to the ESL port;
 2. Do authorization: type `auth <esl_password>` **[enter] [enter]**;
 3. Wait for positive response or FreeSWITCH will terminate the session on wrong password / ACL rules;
@@ -110,8 +112,6 @@ I will explain later why it should be.
   207         task->runtime = switch_epoch_time_now(NULL) + 20;
   208 }
 ```
-6. Type `exit` to finish the session.
-
-How to setup inbound ESL access on FreeSWITCH is out of scope. Please read the documentation.
+6. Type `exit` **[enter] [enter]** to finish the session.
 
 If you successfully passed the steps above - you can configure and build the microservice.
