@@ -49,3 +49,9 @@ req.Content = new StringContent(
 ```
 Of cause, in Production environment HTTP handlers must allow to receive data with length according plain JSON event length (i.e. 4096 bytes, as the default network buffer size)
 I will explain later why it should be.
+
+**So, test ESL first, and try to conversate with the FreeSWITCH by manually:**
+
+1. Open you favorite Telnet client (i.e. [XShell](https://www.netsarang.com/ru/xshell/)) and try to connect to the ESL port;
+2. Do authorization (i.e. type `auth` `esl_password` **[enter] [enter]**);
+3. Wait for positive response or FreeSWITCH will terminate the session on wrong password / ACL rules;
