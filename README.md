@@ -133,6 +133,15 @@ Also, the handler should check event datetime, if there's a policy concerning st
 #### Housekeeping
 
 Possible yes. How many days do you need to store the events into the database? For logging purposes, to resend to failed webhooks. Cron SQL procedure call could help.
+         
+#
+#### Content to post to the HTTP handlers
+
+I'm disagree to post to the HTTP handler transformed data. It is very important to post JSON event to handlers AS IS, without any data transformation (moreover, the data your provided is the pasr of CDR and not the events) Data transformation depends on business rules. Business rules are changeable. Event properties are not. Handler should get event information required. We could have a different handlers that consume a different properties of the event. A new handlers could be created, data to read on existing handlers could be changed. Anyway - the handlers read a different event fields, and need to avoid tight coupling, need to do the decomposition of responsibilities, need to remember about design patterns, best practices and experience. This is just an unidirectional adapter. That transforms ESL to HTTP and no more. But if you 
+         
+During desing we need to remember `SOLID` principes
+
+1.
 
 #
 #### Before you begin
