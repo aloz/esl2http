@@ -52,7 +52,7 @@ I will explain later why it should be.
 
 **So, test ESL first, and try to conversate with the FreeSWITCH by manually:**
 
-1. Open you favorite Telnet client (i.e. [XShell](https://www.netsarang.com/en/xshell/)) and try to connect to the ESL port;
+1. Open you favorite Telnet client (i.e. [XShell](https://www.netsarang.com/en/free-for-home-school/)) and try to connect to the ESL port;
 2. Do authorization: type `auth` `esl_password` **[enter] [enter]**;
 3. Wait for positive response or FreeSWITCH will terminate the session on wrong password / ACL rules;
 4. Subscribe to 'HEARTBEAT' event: type 'event json heartbeat' **[enter] [enter]**;
