@@ -180,10 +180,13 @@ INSERT INTO http_post_handlers(url) VALUES('https://ptsv2.com/t/1fnkf-1627122772
 INSERT INTO http_post_handlers(url) VALUES('https://ptsv2.com/t/lxlxm-1627287724/post');
 INSERT INTO http_post_handlers(url) VALUES('https://ptsv2.com/t/iev4l-1627303429/post');
 ```
-3. Environment variables: `esl2http.env`
+3. Environment variables: file `esl2http.env`
+  
 `esl2http_DBConnectionString`=Host=postgres;Username=esl2http;Password=esl2http;Database=esl2http
+  
 `esl2http_EslRxBufferSize` - ESL TCP RX buffer size (4096 bytes by default, do not change it if events receives correctly)
-`esl2http_EslEventsToSubscribe` - ESL events to subscribe, by defaul are `CHANNEL_ORIGINATE CHANNEL_ANSWER CHANNEL_HANGUP` with prepending `HANGUP`
+  
+`esl2http_EslEventsToSubscribe` - ESL events to subscribe, by defaul are `CHANNEL_ORIGINATE CHANNEL_ANSWER CHANNEL_HANGUP` with always prepended `HEARTBEAT`
 
 _All available SQL connection string parameters please see at (https://www.npgsql.org/doc/connection-string-parameters.html)_
   
