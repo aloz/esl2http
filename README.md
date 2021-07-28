@@ -112,6 +112,6 @@ I will explain later why it should be.
 ```
 6. Type `exit` to finish the session.
 
-How to setup ESL access on FreeSWITCH is out of scope. Please read the documentation.
+How to setup inbound ESL access on FreeSWITCH is out of scope. Please read the documentation.
 
 If you successfully passed the steps above - you can configure and build the microservice.
