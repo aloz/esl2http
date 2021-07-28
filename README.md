@@ -28,6 +28,7 @@ Some key points of the microservice design:
 
 
 TODO TODO TODO
+
 #
 #### Repository structure
 ![](ProjectFiles/README-docker.png)
@@ -53,6 +54,7 @@ Microservice source code. There're 2 assemblies: microservice executable, and mi
         public const string CONST_SECRETS_EslPassword = "esl_password";
 ```
 They are empty by default and must be provided with the valid data. On syntax error the microservice image will not be built. So, the microservice binaries are build from the sources on image creation, handling ESL credentials inside the assembly. Please check the `Dockerfile-esl2http` for more information.
+
 #
 #### Database design
 ![](ProjectFiles/README-esl2http-er.png)
@@ -105,6 +107,15 @@ $$
 of cause, it's possible to extend by the SQL procedure called on schedule by Cron to mark events to resend, if this default behavoir is not suitable.
 
 `sql -U esl2http -d esl2http -f sql_script_to_call_set_to_resend.sql`
+
+If event is resent then the request to the handler will include HTTP header: `X-Esl2http-This-Is-Resend` with the value `1`
+
+Also, the handler should check event datetime, if there's a policy concerning stall events (i.e. are they need after i.e. 3 days if resent?)
+
+#
+#### Housekeeping
+
+Possible yes. How can
 
 #
 #### Before you begin
