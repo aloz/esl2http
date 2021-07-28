@@ -34,7 +34,13 @@ TODO TODO TODO
 - Docker related files. There're Dockerfiles, docker-compose .yaml files, docker compose shell/command files, single docker container shell/command files to delete, build, run, attach and stop containers (i.e. for test purposes - to create and to start just a Postgres container, and to connect to the database from DBeaver or from IDE under debugger)
   - ![](ProjectFiles/README-docker.png)
  
-- Postgres related files. Server configuration files that are deployed on Dockerfile, and SQL scripts that are executed on Dockerfile as well.
+- Postgres related files. Server configuration files that are deployed on Dockerfile, and SQL scripts that are executed on Dockerfile as well. Endpoints are stored into `Init/init_http_post_handlers.sql`
+```sql
+INSERT INTO http_post_handlers(url) VALUES('https://ptsv2.com/t/1fnkf-1627122772/post');
+INSERT INTO http_post_handlers(url) VALUES('https://ptsv2.com/t/lxlxm-1627287724/post');
+INSERT INTO http_post_handlers(url) VALUES('https://ptsv2.com/t/iev4l-1627303429/post');
+```
+It's very easy to copy/paste to a new string to add a new endpoint before creating Postgres container image, if required (as well as to use a separate CRUD UI that is out of scope)
   - ![](ProjectFiles/README-postgres.png)
  
 - 123
