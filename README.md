@@ -26,7 +26,9 @@ Some key points of the microservice design:
 TODO TODO TODO
 #
 #### Repository structure
-
+![](ProjectFiles/README-docker.png)
+![](ProjectFiles/README-postgres.png)
+![](ProjectFiles/README-private.png)
 123
 
 #
