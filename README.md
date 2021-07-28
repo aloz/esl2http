@@ -34,7 +34,7 @@ TODO TODO TODO
 - Docker related files. There're Dockerfiles, docker-compose .yaml files, docker compose shell/command files, single docker container shell/command files to delete, build, run, attach and stop containers (i.e. for test purposes - to create and to start just a Postgres container, and to connect to the database from DBeaver or from IDE under debugger)
   - ![](ProjectFiles/README-docker.png)
  
-- Postgres related files. Server configuration files that are deployed on the Image creation, and SQL scripts that are executed on database creation.
+- Postgres related files. Server configuration files that are deployed on Dockerfile, and SQL scripts that are executed on Dockerfile as well.
   - ![](ProjectFiles/README-postgres.png)
  
 - 123
