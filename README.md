@@ -34,3 +34,7 @@ Before you begin please check your ESL access to the FreeSWITCH host, and please
 
 On Docker image creation the default HTTP handlers are inserted to the `http_post_handlers` table by the SQL script (see below)
 During the microservice is working you can insert any HTTP handlers into the `http_post_handlers` table, and the unsent events will be posted ASAP.
+
+`A HACK:` ptsv2.com is a nice service to test HTTP posts, but has an undocummented limitation to the receiving length of data. According I've no control to there, I have a hardcode into the code:
+
+
