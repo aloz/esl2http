@@ -43,7 +43,11 @@ INSERT INTO http_post_handlers(url) VALUES('https://ptsv2.com/t/iev4l-1627303429
 It's very easy to copy/paste to a new string to add a new endpoint before creating Postgres container image, if required (as well as to use a separate CRUD UI that is out of scope) Global configuration values that are possible to store into the database are into `Init/init_config.sql` For now there's only `timeout_s_http` - HTTP connection timeout (in seconds) read on microservice startup. Default is 100, that is default by default.
   - ![](ProjectFiles/README-postgres.png)
  
-- Microservice source code.
+- Microservice source code. There're 2 assemblies: microservice executable, and microservice secrets. This is for security purposes, to avoid ESL credentials leak by the persons who can maintain this microservice, but must not have an access to the ESL credentials. To avoid fraud, especially IPRN fraud. So, by design, one microservice can be connected to one FreeSWITCH only (but this is possible to extend, for now this is out of scope) and one image is given to DevOps after it built. Next - DevOps can maintain the container, based on the reeady image, without knowing the credentials of how to connect to the FreeSWITCH box. This is very simple: just need to type the credentials into the source code `Esl2Http.Private/Secret.cs`
+```c#
+        public const string CONST_SECRETS_EslHostPort = "esl_host[:port]";
+        public const string CONST_SECRETS_EslPassword = "esl_password";
+```
   - ![](ProjectFiles/README-private.png)
 
 #
