@@ -115,7 +115,7 @@ Also, the handler should check event datetime, if there's a policy concerning st
 #
 #### Housekeeping
 
-Possible yes. How can
+Possible yes. How many days do you need to store the events into the database? For logging purposes, to resend to failed webhooks. Cron SQL procedure call could help.
 
 #
 #### Before you begin
