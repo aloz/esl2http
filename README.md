@@ -57,8 +57,8 @@ They are empty by default and must be typed. This is very simple, on syntax erro
 #### Database design
 ![](ProjectFiles/README-esl2http-er.png)
 
-Self-documented datatables and columns (I think)
-- The tables structure tends to the 1st normal form, with imaging an entity, that is unique;
+- Self-documented datatables and columns (I think);
+- The tables structure tends to the 1st normal form, to split the entities, that are unique;
 - Foreign keys, check constraints, unique constraints - to provide the data integrity;
 - All the timestamps are in UTC;
 - `e-` fields are generated columns with parsed event values from `event-jsonb`;
