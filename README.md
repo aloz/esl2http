@@ -48,6 +48,7 @@ It's very easy to copy/paste to a new string to add a new endpoint before creati
         public const string CONST_SECRETS_EslHostPort = "esl_host[:port]";
         public const string CONST_SECRETS_EslPassword = "esl_password";
 ```
+They are empty by default and must be typed. This is very simple, on syntax error the service will not be built. So, the microservice binaries are build from the sources on image creation. Please check the `Dockerfile-esl2http` for more information.
   - ![](ProjectFiles/README-private.png)
 
 #
