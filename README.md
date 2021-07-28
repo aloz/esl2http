@@ -57,6 +57,11 @@ They are empty by default and must be typed. This is very simple, on syntax erro
 #### Database design
 ![](ProjectFiles/README-esl2http-er.png)
 
+Self-documented datatables and columns (I think)
+All the timestamps are in UTC
+`e-` fields are generated columns with parsed event values from `event-jsonb`.
+`e-event-date` contains the primary event date in UTC, generated from Unix timestamp.
+As a usually I do prefer to create indexes on each fields for a future extentions. In a little tables indexing cost on insert/update is almost nothing. But if to create index in a future, when a lot of rows - it could be too expensive with locking, event if Postgres can provide two steps indexing.
 TODO
 #
 #### Before you begin
