@@ -67,7 +67,7 @@ They are empty by default and must be typed. This is very simple, on syntax erro
 - If any `e-` column `is null` then 'is_valid' column is false;
 - **I forgot to create the column events_heartbeat_last.is_valid, just for information purposes;**
 
-_As a usually I do prefer to create indexes on each fields for a future extentions. In a little tables indexing cost on insert/update is almost nothing. But if to create index in a future, when a lot of rows - it could be too expensive with locking, event if Postgres can provide two steps indexing._
+_As a usually I do prefer to create indexes on each fields for a future extentions. In a little tables indexing cost on insert/update/delete is almost nothing. But if to create index in a future, when a lot of rows - it could be too expensive with locking, event if Postgres can provide two steps indexing._
 TODO
 #
 #### Before you begin
