@@ -222,7 +222,8 @@ To start the microservice:
  
  The thing is I do not know your Docker production environment. My Docker production environment on Linux was under ARM Linux on Raspberry Pi, on Windows was Docker-Desktop with WSL2 under Windows 10 x64 The regulat Dockerfile- didn't tested on regular Linux, but I believe it should work.
          
-p.s. > The endpoints of the external application/system will be called by the micro-service using the POST method.
+p.s. 
+> The endpoints of the external application/system will be called by the micro-service using the POST method.
          
 Of cause the POST verb. According the REST principes (a new item that changes the state)
   
