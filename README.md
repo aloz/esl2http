@@ -13,7 +13,7 @@ Some key points of the microservice design:
  - The blocking on ESL responses - as little as possible;
  - SOLID principes, SingleResponsibility, to avoid monolyth of microservice/HTTP handlers, decomposition of tasks
  - Avoid a lot of text logs, they are unreadable. Rich database design instead of text logs.
- - `HEARBEAT` - the most important FreeSWITCH event. Need to subscribe on it everything, to check is FreeSWITCH alive (i.e. why no events? are there really no events or the telephony is down?) The microservice displays `HEARBEAT` event on receiving.
+ - `HEARBEAT` - the most important FreeSWITCH event. The microservice subscribes on it always on start, logs it to `SDTOUT` and persists to the database as the last received `HEARTBEAT`
 
 The micro-service is designed with using of async layers, each of them with a limited responsibility (i.e. ESL client layer, ESL events persister to database layer, events HTTP post layer, events HTTP repost layer) as much as to avoid locks on workflows.
 All the events are persisted to the database to avoid lost of them.
