@@ -9,7 +9,7 @@ FreeSWITCH Esl2Http cross-platform adapter microservice
         | E | TO THE       | HTTP HANDLERS    | HTTP HANDLERS    |
         | --+--------------+ SELECTING FROM   | SELECTING FROM   |
         | C | MEMORY QUEUE | THE DATABASE     | THE DATABASE     |
-        |   +--------------+                  |                  |
+        | L +--------------+                  |                  |
         | I | DATABASE     | HANDLER 1 THREAD | HANDLER 1 THREAD |
         | E | TABLE        | HANDLER 2 THREAD | HANDLER 2 THREAD |
         | N |              |     ...          |     ...          |
