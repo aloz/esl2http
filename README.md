@@ -17,7 +17,7 @@ Some key points of the microservice design:
  - Avoid a lot of text logs, they are unreadable. Rich database design instead of text logs;
  - `HEARBEAT` - the most important FreeSWITCH event. The microservice subscribes on it always on start, logs it to `SDTOUT` and persists to the database as the last received `HEARTBEAT`
  - `STDOUT` logs should be as much as readable are be clear to understand what is going on;
- - unsent ESL events should not be lost;
+ - Received ESL events should not be lost;
  - Integrity is not guaranteed on the incoming ESL stream, some data could be lost (possible, this is network buffer and performance issue) during the continious events receiving. It was a very strange but that reproduced only inside the Docker container, and not into the IDE (it could be reproducable only if to stay a long time into the breakpoint, while data arrived and nothing read it) So after the blind fix, taking into account the reason - it never reproduced after.
 
 The micro-service is designed with using of async layers, each of them with a limited responsibility (i.e. ESL client layer, ESL events persister to database layer, events HTTP post layer, events HTTP repost layer) as much as to avoid locks on workflows.
