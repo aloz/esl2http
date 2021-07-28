@@ -34,7 +34,8 @@ TODO TODO TODO
 #### Repository structure
 ![](ProjectFiles/README-docker.png)
 
-Docker related files. There're Dockerfiles, docker-compose .yaml files, docker compose shell/command files, single docker container shell/command files to delete, build, run, attach and stop containers (i.e. for test purposes - to create and to start just a Postgres container, and to connect to the database from DBeaver or from the microservice that is under debug on IDE)
+Docker related files (including Docker file for the micro-service)
+There're Dockerfiles, docker-compose .yaml files, docker compose shell/command files, single docker container shell/command files to delete, build, run, attach and stop containers (i.e. for test purposes - to create and to start just a Postgres container, and to connect to the database from DBeaver or from the microservice that is under debug on IDE)
 #
 ![](ProjectFiles/README-postgres.png)
 
@@ -166,7 +167,7 @@ I assume that you already have FreeSWITCH with configured inbound ESL access.
 If you successfully passed the steps above - you can configure and build the microservice.
 
 #
-#### To start the microservice
+#### To start the microservice (including Docker compose file that will include the micro-service and the database)
 
 To start the microservice:
 
