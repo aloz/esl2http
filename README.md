@@ -61,8 +61,11 @@ They are empty by default and must be typed. This is very simple, on syntax erro
 - The tables structure tends to the 1st normal form, to split the entities, that are unique;
 - Foreign keys, check constraints, unique constraints - to provide the data integrity;
 - All the timestamps are in UTC;
-- `e-` fields are generated columns with parsed event values from `event-jsonb`;
+- `e-` columns are generated columns with parsed event values from `event-jsonb`;
 - `e-event-date` contains the primary event date in UTC, generated from Unix timestamp;
+- If `event_jsonb` contains not valid json (i.e. received as malformed) then 'e-' fields parsed as `null`;
+- If any `e-` column `is null` then 'is_valid' column is false;
+- **I forgot to create events_heartbeat_last.is_valid, just for information purposes;**
 
 _As a usually I do prefer to create indexes on each fields for a future extentions. In a little tables indexing cost on insert/update is almost nothing. But if to create index in a future, when a lot of rows - it could be too expensive with locking, event if Postgres can provide two steps indexing._
 TODO
