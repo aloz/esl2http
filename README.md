@@ -3,6 +3,7 @@ FreeSWITCH Esl2Http cross-platform adapter microservice
 
 #### Preface
 
+<div align=
 First of all I would like to thank ImpacTech for the interesting task to design and to develop the software with using of a modern technologies in a field of VoIP. Hope it could be started well according I've tested to deploy it into a different environments (ARM Linux x32 host under Raspberry Pi, Docker Desktop on Windows x64 with Windows Subsystem for Linux)
 
 I have used my own FreeSWITCH 1.10 to test, the latest production edition.
@@ -47,3 +48,4 @@ req.Content = new StringContent(
     Encoding.UTF8, "application/json");
 ```
 Of cause, in Production environment HTTP handlers must allow to receive data with length according plain JSON event length (i.e. 4096 bytes, as the default network buffer size)
+I will explain later why it should be.
