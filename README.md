@@ -48,9 +48,6 @@ This image is built successfully with docker desktop, but with regular docker on
 postgres could not to create database directory. No files were after it was built. The fix was to declare VOLUME in the docker file right after all the data are saved
 to the destination, and after to mount the volume (you can check the history of that file)
 
-
-TODO TODO TODO
-
 #
 #### Repository structure
 ![](ProjectFiles/README-docker.png)
