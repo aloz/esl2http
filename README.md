@@ -218,6 +218,7 @@ To start the microservice:
   Thank you!
   
   Best regards,
+         
   Anton Lozovskyi
   #
  Solition copyright (c) by me
