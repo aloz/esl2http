@@ -67,8 +67,17 @@ They are empty by default and must be provided with the valid data. On syntax er
 - If any `e-` column `is null` then `is_valid` column is false;
 - **I forgot to create the column events_heartbeat_last.is_valid, just for information purposes;**
 
-_As a usually I do prefer to create indexes on each fields for a future extentions. In a little tables indexing cost on insert/update/delete is almost nothing. But if to create index in a future, when a lot of rows - it could be too expensive with locking, even if Postgres can provide two steps indexing._
-TODO
+_As a usually I do prefer to create indexes on each fields for a future extentions. In a little tables indexing cost on insert/update/delete is almost nothing. But if to create an index in a future, when a lot of rows - it could be too expensive with locking, even if Postgres can provide two steps of indexing._
+
+The datatables are:
+
+- `switches` - FreeSWITCH boxes. Unique by core_uuid, even if it changes on switch restart;
+- `event_heartbeat_last` - the last received `HEARTBEAT` event, unique by the switch;
+- `http_post_handlers` - unique endpoints to post events;
+- `events` - events received and persisted to the database;
+- `http_post_statuses` - references to the event referenced by the posted endpoint (unique, this is an entity). To repost - need to update `need_resend` to `true` where 'is_success' is false. Or to delete the records there.
+- `config` - single row table, read on the microservice startup.
+
 #
 #### Before you begin
 
