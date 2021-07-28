@@ -53,5 +53,16 @@ I will explain later why it should be.
 **So, test ESL first, and try to conversate with the FreeSWITCH by manually:**
 
 1. Open you favorite Telnet client (i.e. [XShell](https://www.netsarang.com/ru/xshell/)) and try to connect to the ESL port;
-2. Do authorization (i.e. type `auth` `esl_password` **[enter] [enter]**);
+2. Do authorization: type `auth` `esl_password` **[enter] [enter]**;
 3. Wait for positive response or FreeSWITCH will terminate the session on wrong password / ACL rules;
+4. Subscribe to 'HEARTBEAT' event: type 'event json heartbeat' **[enter] [enter]**;
+5. Enjoy 'HEARTBEAT' events that are send every 20 seconds;
+```
+  202 SWITCH_STANDARD_SCHED_FUNC(heartbeat_callback)
+  203 {
+  204         send_heartbeat();
+  205 
+  206         /* reschedule this task */
+  207         task->runtime = switch_epoch_time_now(NULL) + 20;
+  208 }
+```
