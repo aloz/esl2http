@@ -79,6 +79,28 @@ The datatables are:
 - `config` - single row table, read on the microservice startup.
 
 #
+#### Resend failed webhooks policy
+
+Failed webhooks (HTTP post statuscode rather than 2xx or throwed exception on post) is an exceptional case that is not a normal flow. Should we resend events to the handlers by auto if i.e. 404 (not found) response? I think no, taking into account that it could be a typo into the URL of the handler. Should we auto resend-resend-resend and to throttle the endpoint if 5xx server error? I think no. I see no cases when it should be recovered by auto. I think in this case the microservice should stop to send events to the failed endpoints, and provide a notification that this exceptional situation is on.
+
+After the problem is gone it's possible to resend the failed events by default by manually. Pleace check `ProjectFiles/Postgres/SQL/Other/example-resend.sql`:
+
+```sql
+-- This is an example how to apply to send events to the failed http handler
+
+DO
+LANGUAGE plpgsql
+$$
+DECLARE
+    _handler_id int;
+BEGIN
+    CALL usp_events_set_to_resend('https://ptsv2.com/t/iev4l-1627303429/post', _handler_id);
+    RAISE NOTICE '_handler_id: %', _handler_id;
+END;
+$$
+```
+
+#
 #### Before you begin
 
 Before you begin please check your ESL access to the FreeSWITCH host, and please check your HTTP handlers where ESL events to be posted. For test purposes I've used [ptsv2.com - Post Test Server V2](https://ptsv2.com/). You can get there as much handlers as you can, and even to define there HTTP response status code. The pre-configured HTTP handlers used into the default configuration are:
