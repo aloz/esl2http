@@ -50,7 +50,7 @@ It's very easy to copy/paste to a new string to add a new endpoint before creati
 #
 ![](ProjectFiles/README-private.png)
 
-Microservice source code. There're 2 assemblies: microservice executable, and microservice secrets. This is for security purposes, to avoid ESL credentials leak by the persons who can maintain this microservice, but must not have an access to the ESL credentials. To avoid fraud, especially IPRN fraud (to connect to ESL, to type something like `bgapi originate sofia/external/iprn_1_dollar_per_minute@regular_termination_provider &park` a lot of time and enjoy the account balance 😁) So, by design, one microservice can be connected to one FreeSWITCH only (but it's possible to extend, for now it's out of scope) and the image is given to DevOps after it built. Next - DevOps can maintain the container, based on the ready image, without knowing the credentials of how to connect to the FreeSWITCH box. This is very simple: just need to type the credentials into the source code `Esl2Http.Private/Secret.cs`
+Microservice source code. There're 2 assemblies: microservice executable, and microservice secrets. This is for security purposes, to avoid ESL credentials leak by the persons who can maintain this microservice, but must not have an access to the ESL credentials. To avoid fraud, especially IPRN fraud (to connect to ESL, to type something like `bgapi originate sofia/external/iprn_1_dollar_per_minute@regular_termination_provider &park` a lot of time and enjoy the account balance 😁) So, by design, one microservice can be connected to one FreeSWITCH only (but it's possible to extend, for now it's out of scope) and the image is given to DevOps after it built. Next - DevOps can maintain the container, based on the ready image, without knowing the credentials of how to connect to the FreeSWITCH box. This is very simple: just need to type the credentials into the source code `Esl2Http.Private/Secrets.cs`
 ```c#
         public const string CONST_SECRETS_EslHostPort = "esl_host[:port]";
         public const string CONST_SECRETS_EslPassword = "esl_password";
@@ -165,7 +165,28 @@ I assume that you already have FreeSWITCH with configured inbound ESL access.
 6. Type `exit` **[enter] [enter]** to finish the session.
 
 If you successfully passed the steps above - you can configure and build the microservice.
+  
+#
+#### Microservice configuration:
+  
+1. ESL access: `Esl2Http.Private/Secrets.cs`
+```c#
+        public const string CONST_SECRETS_EslHostPort = "esl_host[:port]";
+        public const string CONST_SECRETS_EslPassword = "esl_password";
+```
+2. HTTP endpoints to post: `Init/init_http_post_handlers.sql`
+```sql
+INSERT INTO http_post_handlers(url) VALUES('https://ptsv2.com/t/1fnkf-1627122772/post');
+INSERT INTO http_post_handlers(url) VALUES('https://ptsv2.com/t/lxlxm-1627287724/post');
+INSERT INTO http_post_handlers(url) VALUES('https://ptsv2.com/t/iev4l-1627303429/post');
+```
+3. Environment variables: `esl2http.env`
+`esl2http_DBConnectionString`=Host=postgres;Username=esl2http;Password=esl2http;Database=esl2http
+`esl2http_EslRxBufferSize` - ESL TCP RX buffer size (4096 bytes by default, do not change it if events receives correctly)
+`esl2http_EslEventsToSubscribe` - ESL events to subscribe, by defaul are `CHANNEL_ORIGINATE CHANNEL_ANSWER CHANNEL_HANGUP` with prepending `HANGUP`
 
+_All available SQL connection string parameters please see at (https://www.npgsql.org/doc/connection-string-parameters.html)_
+  
 #
 #### To start the microservice (including Docker compose file that will include the micro-service and the database)
 
