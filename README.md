@@ -35,4 +35,5 @@ Before you begin please check your ESL access to the FreeSWITCH host, and please
 - [https://ptsv2.com/t/lxlxm-1627287724/post](https://ptsv2.com/t/lxlxm-1627287724)
 - [https://ptsv2.com/t/iev4l-1627303429/post](https://ptsv2.com/t/iev4l-1627303429)
 
-You can insert any HTTP handlers into the `http_post_handlers` table, and the microservice will send the unsent events as soon as the handler inserted.
+On Docker image creation the default HTTP handlers are inserted to the `http_post_handlers` table by the SQL script (see below)
+During the microservice is working you can insert any HTTP handlers into the `http_post_handlers` table, and the unsent events will be posted ASAP.
