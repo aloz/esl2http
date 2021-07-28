@@ -71,7 +71,7 @@ _As a usually I do prefer to create indexes on each fields for a future extentio
 
 The datatables are:
 
-- `switches` - FreeSWITCH boxes. Unique by core_uuid, even if it changes on switch restart;
+- `switches` - FreeSWITCH boxes. Unique by core_uuid, even if the column value changes on switch restart;
 - `event_heartbeat_last` - the last received `HEARTBEAT` event, unique by the switch;
 - `http_post_handlers` - unique endpoints to post events;
 - `events` - events received and persisted to the database;
