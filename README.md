@@ -83,7 +83,9 @@ The datatables are:
 
 Failed webhooks (HTTP post statuscode rather than 2xx or throwed exception on post) is an exceptional case that is not a normal flow. Should we resend events to the handlers by auto if i.e. 404 (not found) response? I think no, taking into account that it could be a typo into the URL of the handler. Should we auto resend-resend-resend and to throttle the endpoint if 5xx server error? I think no. I see no cases when it should be recovered by auto. I think in this case the microservice should stop to send events to the failed endpoints, and provide a notification that this exceptional situation is on.
 
-After the problem is gone it's possible to resend the failed events by default by manually. Pleace check `ProjectFiles/Postgres/SQL/Other/example-resend.sql`:
+Each event posts to the endpoint in parallel, into its own thread, for a higher performance. Even using parallel sending, mixing sending to working endpoints and auto resend to the failed endpoints we are in risk that resends will stuck sending to working endpoints.
+
+After the endpoint problem is gone it's possible to resend the failed events by default by manually. Pleace check `ProjectFiles/Postgres/SQL/Other/example-resend.sql`:
 
 ```sql
 -- This is an example how to apply to send events to the failed http handler
@@ -99,6 +101,8 @@ BEGIN
 END;
 $$
 ```
+
+of cause, it'spossible to extend by the SQL procedure scheduled called by Cron to mark events to resend, if this default behavoir need to be changed.
 
 #
 #### Before you begin
