@@ -41,7 +41,7 @@ Some key points of the microservice design:
  - `HEARBEAT` - is the most important FreeSWITCH event. The microservice subscribes on it always on start, logs it to `SDTOUT` and persists to the database as the last received `HEARTBEAT`;
  - `STDOUT` logs should be as much as readable are be clear to understand what is going on;
  - Received ESL events should not be lost, they should be sent in order according the event time containing into it;
- - <p align="justify">Integrity is not guaranteed on the incoming ESL TCP stream, some data could be lost (possible this is network buffer and performance issue) during the continious events receiving. It was a very strange but reproduced only inside the Docker container, and not into debugger on IDE (it could be reproducible only if to stay a long time into the breakpoint, while the data arrived and nothing read it) So after the blind fix, with understanding the reason - it never reproduced after.
+ - <p align="justify">Integrity is not guaranteed on the incoming ESL TCP stream, some data could be lost (possible this is network buffer and performance issue) during the continious events receiving. It was a very strange but reproduced only inside the Docker container, and not into debugger on IDE (it could be reproducible only if to stay a long time into the breakpoint, while the data arrived and nothing read it) So after the blind fix, with understanding the reason - it never reproduced it after.
 
 Also, a different behavior in Dockerfile-postgres with VOLUME is reproduced when I build it under Docker Desktop and under regular Docker under Linux.
 This image is built successfully with docker desktop, but with regular docker on Linux, even when the docker versions are the same - built with an error:
