@@ -97,13 +97,13 @@ The datatables are:
 - `event_heartbeat_last` - the last received `HEARTBEAT` event, unique by the switch;
 - `http_post_handlers` - unique endpoints to post events;
 - `events` - events received and persisted to the database;
-- `http_post_statuses` - references to the event referenced by the posted endpoint (unique, this is an entity). To repost - need to update `need_resend` to `true` where 'is_success' is false. Or to delete the records there.
+- `http_post_statuses` - references to the event referenced by the posted endpoint (unique, this is an entity). To repost - need to update `need_resend` to `true` where `is_success` is false. Or to delete the records there.
 - `config` - single row table, read on the microservice startup.
 
 #
 #### Resend failed webhooks policy
 
-Failed webhooks (HTTP post statuscode rather than 2xx or throwed exception on post) is an exceptional case that is not a normal flow. Should we resend events to the handlers by auto if i.e. 404 (not found) response? I think no, taking into account that it could be a typo into the URL of the handler. Should we auto resend-resend-resend and to throttle the endpoint if 5xx server error? I think no. I see no cases when it should be recovered by auto. I think in this case the microservice should stop to send events to the failed endpoints, and provide a notification that this exceptional situation is on.
+Failed webhooks (HTTP post statuscode rather than 2xx or throwed exception on post) is an exceptional case that is not a normal flow. Should we resend events to the handlers by auto if i.e. 404 (not found) response? I don't think so, taking into account that it could be a typo into the URL of the handler. Should we auto resend-resend-resend and to throttle the endpoint if 5xx server error? I think no. I see no cases when it should be recovered by auto. I think in this case the microservice should stop to send events to the failed endpoints, and provide a notification that this exceptional situation is on.
 
 Each event posts to the endpoint in parallel, into its own thread, for a higher performance. Even using parallel sending, mixing sending to working endpoints and auto resend to the failed endpoints we are in risk that resends will stuck sending to working endpoints.
 
