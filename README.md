@@ -58,7 +58,7 @@ There're Dockerfiles, docker-compose .yaml files, docker compose shell/command f
 ![](ProjectFiles/README-postgres.png)
 
 Postgres related files (including database implementation)
-Server configuration files that are copies by `Dockerfile-postgres`, and SQL scripts that are executed by `Dockerfile-postgres` as well. Endpoints are stored into `Init/init_http_post_handlers.sql`
+Server configuration files that are copied by `Dockerfile-postgres`, and SQL scripts that are executed by `Dockerfile-postgres` as well. Endpoints are stored into `Init/init_http_post_handlers.sql`
 ```sql
 INSERT INTO http_post_handlers(url) VALUES('https://ptsv2.com/t/1fnkf-1627122772/post');
 INSERT INTO http_post_handlers(url) VALUES('https://ptsv2.com/t/lxlxm-1627287724/post');
