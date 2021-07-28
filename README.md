@@ -10,10 +10,10 @@ I have used my own FreeSWITCH 1.10 to test, the latest production edition.
 
 <p align="justify">
 Both containers are under Alpine Linux - the most lightest Linux. Dockerfiles contain a little number of layers as little as possible. The microservice is Linux executable, made as a cross-platform application (can be compiled to Windows executable as well) with using of .net 5, building from the sources when the Docker Image is building, that makes possible to hard-code into the source code for security purposes the most critical credentials - ESL password and the FreeSWITCH ESL host and port, to avoid to leak it by DevOps engineers or anybody who are not authorized to have ESL access there.
- </p>
+</p>
 
 Some key points of the microservice design:
-
+<p align="justify">
  - Containers must be as little as possible, with as little as possible numbers of layers;
  - Asynchronious design is required, to minimize blocking on high-load, to avoid performance degradation.
  - SOLID principes. For example:
@@ -24,6 +24,7 @@ Some key points of the microservice design:
  - `STDOUT` logs should be as much as readable are be clear to understand what is going on;
  - Received ESL events should not be lost, they should be sent in order according the event time containing into it;
  - Integrity is not guaranteed on the incoming ESL stream, some data could be lost (possible, this is network buffer and performance issue) during the continious events receiving. It was a very strange but that reproduced only inside the Docker container, and not into the IDE (it could be reproducible only if to stay a long time into the breakpoint, while data arrived and nothing read it) So after the blind fix, taking into account the reason - it never reproduced after.
+</p>
 
 TODO TODO TODO
 #
