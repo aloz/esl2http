@@ -110,7 +110,7 @@ of cause, it's possible to extend by the SQL procedure called on schedule by Cro
 
 If event is resent then the request to the handler will include HTTP header: `X-Esl2http-This-Is-Resend` with the value `1`
 
-Also, the handler should check event datetime, if there's a policy concerning stall events (i.e. are they need after i.e. 3 days if resent?)
+Also, the handler should check event datetime, if there's a policy concerning stall events (i.e. do we need to post after i.e. 3 days received them?)
 
 #
 #### Housekeeping
