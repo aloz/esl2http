@@ -34,7 +34,7 @@ Some key points of the microservice design:
 - Asynchronious design is required, to minimize blocking on high-load, to avoid performance degradation;
 
   - SOLID principes. For example:
-  - SingleResponsibility, to avoid monolyth of microservice/HTTP handlers, decomposition of tasks;
+  - SingleResponsibility, to avoid monolith of microservice/HTTP handlers, decomposition of tasks;
   - OpenClosed: layered design, able to extend in a future;
   
  - Avoid a lot of text logs, they are unreadable. Rich database design instead of text logs;
