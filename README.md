@@ -31,10 +31,12 @@ TODO TODO TODO
 #
 #### Repository structure
 ![](ProjectFiles/README-docker.png)
-- Docker related files. There're Dockerfiles, docker-compose .yaml files, docker compose shell/command files, single docker container shell/command files to delete, build, run, attach and stop containers (i.e. for test purposes - to create and to start just a Postgres container, and to connect to the database from DBeaver or from IDE under debugger)
+
+Docker related files. There're Dockerfiles, docker-compose .yaml files, docker compose shell/command files, single docker container shell/command files to delete, build, run, attach and stop containers (i.e. for test purposes - to create and to start just a Postgres container, and to connect to the database from DBeaver or from IDE under debugger)
 #
 ![](ProjectFiles/README-postgres.png)
-- Postgres related files.
+
+Postgres related files (including database implementation)
 Server configuration files that are deployed on Dockerfile, and SQL scripts that are executed on Dockerfile as well. Endpoints are stored into `Init/init_http_post_handlers.sql`
 ```sql
 INSERT INTO http_post_handlers(url) VALUES('https://ptsv2.com/t/1fnkf-1627122772/post');
@@ -44,12 +46,18 @@ INSERT INTO http_post_handlers(url) VALUES('https://ptsv2.com/t/iev4l-1627303429
 It's very easy to copy/paste to a new string to add a new endpoint before creating Postgres container image, if required (as well as to use a separate CRUD UI that is out of scope) Global configuration values that are possible to store into the database are into `Init/init_config.sql` For now there's only `timeout_s_http` - HTTP connection timeout (in seconds) read on microservice startup. Default is 100, that is default by default.
 #
 ![](ProjectFiles/README-private.png)
-- Microservice source code. There're 2 assemblies: microservice executable, and microservice secrets. This is for security purposes, to avoid ESL credentials leak by the persons who can maintain this microservice, but must not have an access to the ESL credentials. To avoid fraud, especially IPRN fraud (to connect to ESL, to type something like `bgapi originate sofia/external/iprn_1_dollar_per_minute@regular_termination_provider &park` a lot of time and enjoy the account balance 😁) So, by design, one microservice can be connected to one FreeSWITCH only (but this is possible to extend, for now this is out of scope) and one image is given to DevOps after it built. Next - DevOps can maintain the container, based on the ready image, without knowing the credentials of how to connect to the FreeSWITCH box. This is very simple: just need to type the credentials into the source code `Esl2Http.Private/Secret.cs`
+
+Microservice source code. There're 2 assemblies: microservice executable, and microservice secrets. This is for security purposes, to avoid ESL credentials leak by the persons who can maintain this microservice, but must not have an access to the ESL credentials. To avoid fraud, especially IPRN fraud (to connect to ESL, to type something like `bgapi originate sofia/external/iprn_1_dollar_per_minute@regular_termination_provider &park` a lot of time and enjoy the account balance 😁) So, by design, one microservice can be connected to one FreeSWITCH only (but this is possible to extend, for now this is out of scope) and one image is given to DevOps after it built. Next - DevOps can maintain the container, based on the ready image, without knowing the credentials of how to connect to the FreeSWITCH box. This is very simple: just need to type the credentials into the source code `Esl2Http.Private/Secret.cs`
 ```c#
         public const string CONST_SECRETS_EslHostPort = "esl_host[:port]";
         public const string CONST_SECRETS_EslPassword = "esl_password";
 ```
 They are empty by default and must be typed. This is very simple, on syntax error the microservice image will not be built. So, the microservice binaries are build from the sources on image creation. Please check the `Dockerfile-esl2http` for more information.
+#
+#### Database design
+![](ProjectFiles/README-esl2http-er.png)
+
+TODO
 #
 #### Before you begin
 
