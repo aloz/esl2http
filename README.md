@@ -241,6 +241,7 @@ Of cause the POST verb. According the REST principes (a new item that changes th
   Anton Lozovskyi
          
 p.s. Sorry for typos - it was nice 3 weeks to design and to develop non stop.
+         
 p.p.s. - sorry, no to squash commits is available for online GIT
   #
  Solution copyright (c) by me
