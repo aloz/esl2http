@@ -180,4 +180,4 @@ To start the microservice:
   Best regards,
   Anton Lozovskyi
   #
-  Code copyright by me
+ Solition copyright (c) by me
