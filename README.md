@@ -25,6 +25,11 @@ Some key points of the microservice design:
 
 TODO TODO TODO
 #
+#### Repository structure
+
+123
+
+#
 #### Before you begin
 
 Before you begin please check your ESL access to the FreeSWITCH host, and please check your HTTP handlers where ESL events to be posted. For test purposes I've used [ptsv2.com - Post Test Server V2](https://ptsv2.com/). You can get there as much handlers as you can, and even to define there HTTP response status code. The pre-configured HTTP handlers used into the default configuration are:
