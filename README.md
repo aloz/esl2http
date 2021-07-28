@@ -35,6 +35,15 @@ Before you begin please check your ESL access to the FreeSWITCH host, and please
 On Docker image creation the default HTTP handlers are inserted to the `http_post_handlers` table by the SQL script (see below)
 During the microservice is working you can insert any HTTP handlers into the `http_post_handlers` table, and the unsent events will be posted ASAP.
 
-`A HACK:` ptsv2.com is a nice service to test HTTP posts, but has an undocummented limitation to the receiving length of data. According I've no control to there, I have a hardcode into the code:
+`A HACK:` ptsv2.com is a nice service to test HTTP posts, but has an undocummented limitation to the receiving length of data and returns InternalServerError if to test to post events there. According I've no control to there, I have a hardcode into the code:
 
-
+```
+// A hack to avoid Internal Server Error on the test environment.
+// Not for production.
+// Just to avoid remote settings of the max. request length.
+// A hard hack
+req.Content = new StringContent(
+    req.RequestUri.Host == "ptsv2.com" ? EventToPost.Item2.Substring(0, 1500) : EventToPost.Item2,
+    Encoding.UTF8, "application/json");
+```
+Of cause, in Production environment HTTP handlers must allow to receive data with length according plain JSON event length (i.e. 4096 bytes, as the default network buffer size)
