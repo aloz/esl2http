@@ -126,7 +126,7 @@ $$
 
 of cause, it's possible to extend by the SQL procedure called on schedule by Cron to mark events to resend, if this default behavoir is not suitable.
 
-`sql -U esl2http -d esl2http -f sql_script_to_call_set_to_resend.sql`
+`psql -U esl2http -d esl2http -f sql_script_to_call_set_to_resend.sql`
 
 If event is resent then the request to the handler will include HTTP header: `X-Esl2http-This-Is-Resend` with the value `1`
 
