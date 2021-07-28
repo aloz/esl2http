@@ -24,7 +24,8 @@ Some key points of the microservice design:
  - `HEARBEAT` - is the most important FreeSWITCH event. The microservice subscribes on it always on start, logs it to `SDTOUT` and persists to the database as the last received `HEARTBEAT`;
  - `STDOUT` logs should be as much as readable are be clear to understand what is going on;
  - Received ESL events should not be lost, they should be sent in order according the event time containing into it;
- - <p align="justify">Integrity is not guaranteed on the incoming ESL TCP stream, some data could be lost (possible this is network buffer and performance issue) during the continious events receiving. It was a very strange but reproduced only inside the Docker container, and not into debugger on IDE (it could be reproducible only if to stay a long time into the breakpoint, while the data arrived and nothing read it) So after the blind fix, with understanding the reason - it never reproduced after.</p>
+ - <p align="justify">Integrity is not guaranteed on the incoming ESL TCP stream, some data could be lost (possible this is network buffer and performance issue) during the continious events receiving. It was a very strange but reproduced only inside the Docker container, and not into debugger on IDE (it could be reproducible only if to stay a long time into the breakpoint, while the data arrived and nothing read it) So after the blind fix, with understanding the reason - it never reproduced after.
+- TODO - a different VOLUME behavior
 
 
 TODO TODO TODO
@@ -163,3 +164,20 @@ I assume that you already have FreeSWITCH with configured inbound ESL access.
 6. Type `exit` **[enter] [enter]** to finish the session.
 
 If you successfully passed the steps above - you can configure and build the microservice.
+
+#
+#### To start the microservice
+
+To start the microservice:
+
+- use esl2http.yaml, esl2http-raspi.yaml
+- or use /ProjectFiles/Docker/ ordered folders and ordered shell/command files
+ 
+ The thing is I do not know your Docker production environment. My Docker production environment on Linux was under ARM Linux on Raspberry Pi. The regulat Dockerfile- didn't tested on regular Linux, but I believe it should start.
+  
+  Thank you!
+  
+  Best regards,
+  Anton Lozovskyi
+  #
+  Code copyright by me
