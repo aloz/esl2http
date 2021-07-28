@@ -24,6 +24,8 @@ The micro-service is designed with using of async layers, each of them with a li
 All the events are persisted to the database to avoid lost of them.
 All the business logic responsible for events processing resides inside the database (procedures, tables with calculated columns, relations etc.)
 Database objects structure are able to give a full information about what's going on, how events are sent, which HTTP handlers are out of service, which events need to resend etc.
+
+TODO TODO TODO
 #
 #### Before you begin
 
