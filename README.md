@@ -18,7 +18,7 @@ FreeSWITCH Esl2Http cross-platform adapter microservice
 
 #### Preface
 <p align="justify">
-First of all I would like to thank ImpacTech for the interesting task to design and to develop the software with using of a modern technologies in a field of VoIP. Hope it could be started well according I've tested to deploy it into a different environments (ARM Linux x32 host under Raspberry Pi, Docker Desktop on Windows x64 with Windows Subsystem for Linux)
+First of all I would like to thank ImpacTech for the interesting task to design and to develop the software with using of a modern technologies in a field of VoIP. Hope it could be started well according I've tested to deploy it into a different environments (ARM Linux x32 host under Raspberry Pi, Docker Desktop on Windows 10 x64 with Windows Subsystem for Linux)
 </p>
 
 I have used my own FreeSWITCH 1.10 to test, the latest production edition.
