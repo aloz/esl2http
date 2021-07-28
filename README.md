@@ -198,7 +198,7 @@ To start the microservice:
 - use esl2http.yaml, esl2http-raspi.yaml
 - or use /ProjectFiles/Docker/ ordered folders and ordered shell/command files
  
- The thing is I do not know your Docker production environment. My Docker production environment on Linux was under ARM Linux on Raspberry Pi. The regulat Dockerfile- didn't tested on regular Linux, but I believe it should start.
+ The thing is I do not know your Docker production environment. My Docker production environment on Linux was under ARM Linux on Raspberry Pi, on Windows was Docker-Desktop with WSL2 under Windows 10 x64 The regulat Dockerfile- didn't tested on regular Linux, but I believe it should work.
   
   Thank you!
   
