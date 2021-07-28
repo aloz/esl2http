@@ -1,6 +1,21 @@
 # Esl2Http
 FreeSWITCH Esl2Http cross-platform adapter microservice
 
+         Each layer is into its own thread, into the thread loop
+
+        +---+--------------+------------------+------------------+
+        | S | EVENTS       | POST             | RESEND           |
+        | L | PERSISTER    | TO               | TO FAILED        |
+        | E | TO THE       | HTTP HANDLERS    | HTTP HANDLERS    |
+        | --+--------------+ SELECTING FROM   | SELECTING FROM   |
+        | C | MEMORY QUEUE | THE DATABASE     | THE DATABASE     |
+	    	| L +--------------+                  |                  |
+        | I | DATABASE     | HANDLER 1 THREAD | HANDLER 1 THREAD |
+        | E | TABLE        | HANDLER 2 THREAD | HANDLER 2 THREAD |
+        | N |              |     ...          |     ...          |
+        | T |              | HANDLER N THREAD | HANDLER N THREAD |
+		    +---+--------------+------------------+------------------+
+
 #### Preface
 <p align="justify">
 First of all I would like to thank ImpacTech for the interesting task to design and to develop the software with using of a modern technologies in a field of VoIP. Hope it could be started well according I've tested to deploy it into a different environments (ARM Linux x32 host under Raspberry Pi, Docker Desktop on Windows x64 with Windows Subsystem for Linux)
