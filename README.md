@@ -56,7 +56,7 @@ I will explain later why it should be.
 2. Do authorization: type `auth` `esl_password` **[enter] [enter]**;
 3. Wait for positive response or FreeSWITCH will terminate the session on wrong password / ACL rules;
 4. Subscribe to 'HEARTBEAT' event: type 'event json heartbeat' **[enter] [enter]**;
-5. Enjoy 'HEARTBEAT' events that are send every 20 seconds;
+5. Enjoy 'HEARTBEAT' events that are sending every 20 seconds;
 ```
   202 SWITCH_STANDARD_SCHED_FUNC(heartbeat_callback)
   203 {
