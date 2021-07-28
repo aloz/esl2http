@@ -222,10 +222,10 @@ To start the microservice:
  
  The thing is I do not know your Docker production environment. My Docker production environment on Linux was under ARM Linux on Raspberry Pi, on Windows was Docker-Desktop with WSL2 under Windows 10 x64 The regulat Dockerfile- didn't tested on regular Linux, but I believe it should work.
   
-  Thank you!
+  Thank you, and good luck!
   
   Best regards,
          
   Anton Lozovskyi
   #
- Solition copyright (c) by me
+ Solution copyright (c) by me
