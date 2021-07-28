@@ -101,7 +101,7 @@ I assume that you already have FreeSWITCH with configured inbound ESL access.
 1. Open you favorite Telnet client (i.e. [XShell](https://www.netsarang.com/en/free-for-home-school/)) and try to connect to the ESL port;
 2. Do authorization: type `auth <esl_password>` **[enter] [enter]**;
 3. Wait for positive response or FreeSWITCH will terminate the session on wrong password / ACL rules;
-4. Subscribe to `HEARTBEAT` event: type 'event json heartbeat' **[enter] [enter]**;
+4. Subscribe to `HEARTBEAT` event: type `event json heartbeat` **[enter] [enter]**;
 5. Enjoy `HEARTBEAT` events that are sending every 20 seconds;
 ```c
   202 SWITCH_STANDARD_SCHED_FUNC(heartbeat_callback)
