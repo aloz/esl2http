@@ -205,7 +205,9 @@ INSERT INTO http_post_handlers(url) VALUES('https://ptsv2.com/t/1fnkf-1627122772
 INSERT INTO http_post_handlers(url) VALUES('https://ptsv2.com/t/lxlxm-1627287724/post');
 INSERT INTO http_post_handlers(url) VALUES('https://ptsv2.com/t/iev4l-1627303429/post');
 ```
-3. Environment variables: file `esl2http.env`
+3. Global configuration values: `Init/init_config.sql` For now there's only `timeout_s_http` - HTTP connection timeout (in seconds) read on microservice startup. Default is 100, that is default by default.
+         
+4. Environment variables: file `esl2http.env`
   
 `esl2http_DBConnectionString`=Host=postgres;Username=esl2http;Password=esl2http;Database=esl2http
   
