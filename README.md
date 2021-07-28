@@ -22,11 +22,6 @@ Some key points of the microservice design:
  - Received ESL events should not be lost, they should be sent in order according the event time containing into it;
  - Integrity is not guaranteed on the incoming ESL stream, some data could be lost (possible, this is network buffer and performance issue) during the continious events receiving. It was a very strange but that reproduced only inside the Docker container, and not into the IDE (it could be reproducible only if to stay a long time into the breakpoint, while data arrived and nothing read it) So after the blind fix, taking into account the reason - it never reproduced after.
 
-The micro-service is designed with using of async layers, each of them with a limited responsibility (i.e. ESL client layer, ESL events persister to database layer, events HTTP post layer, events HTTP repost layer) as much as to avoid locks on workflows.
-All the events are persisted to the database to avoid lost of them.
-All the business logic responsible for events processing resides inside the database (procedures, tables with calculated columns, relations etc.)
-Database objects structure are able to give a full information about what's going on, how events are sent, which HTTP handlers are out of service, which events need to resend etc.
-
 TODO TODO TODO
 #
 #### Before you begin
