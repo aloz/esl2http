@@ -4,9 +4,9 @@ FreeSWITCH Esl2Http cross-platform adapter microservice
          Each layer is into its own thread, into the thread loop
 
         +---+--------------+------------------+------------------+
-        | S | EVENTS       | POST             | RESEND           |
-        | L | PERSISTER    | TO THE           | TO THE FAILED    |
-        | E | TO THE       | HTTP HANDLERS    | HTTP HANDLERS    |
+        | E | EVENTS       | POST             | RESEND           |
+        | S | PERSISTER    | TO THE           | TO THE FAILED    |
+        | L | TO THE       | HTTP HANDLERS    | HTTP HANDLERS    |
         | --+--------------+ SELECTING FROM   | SELECTING FROM   |
         | C | MEMORY QUEUE | THE DATABASE     | THE DATABASE     |
         | L +--------------+                  |                  |
