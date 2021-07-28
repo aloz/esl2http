@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Esl2Http", "Esl2Http\Esl2Ht
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProjectFiles", "ProjectFiles", "{615E75C6-E99B-44AB-9AD1-B1556B4FECA9}"
 	ProjectSection(SolutionItems) = preProject
+		ProjectFiles\README-docker.png = ProjectFiles\README-docker.png
+		ProjectFiles\README-esl2http-er.png = ProjectFiles\README-esl2http-er.png
+		ProjectFiles\README-postgres.png = ProjectFiles\README-postgres.png
+		ProjectFiles\README-private.png = ProjectFiles\README-private.png
 		README.md = README.md
 	EndProjectSection
 EndProject
