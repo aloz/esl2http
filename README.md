@@ -88,9 +88,9 @@ They are empty by default and must be provided with the valid data. On syntax er
 - If `event_jsonb` contains not valid json (i.e. received as malformed) then 'e-' fields parsed as `null`;
 - If any `e-` column `is null` then `is_valid` column is false;
 - **I forgot to create the column events_heartbeat_last.is_valid, just for information purposes;**
-- *Update: if we successfully read JSON properties of the event - the event is valid by default, so if we read that it was `HEARTBEAT` to insert into `events_heartbeat_last` - the event is valid by default, and need no `column events_heartbeat_last.is_valid.
+- *Update: if we successfully read JSON properties of the event - the event is valid by default, so if we read that it was `HEARTBEAT` to insert into `events_heartbeat_last` - the event is valid by default, and need no `column events_heartbeat_last.is_valid.*
 
-'Right ideas come later' - a proverb.
+'Right ideas come later - a proverb.
 
 _As a usually I do prefer to create indexes on each fields for a future extentions. In a little tables indexing cost on insert/update/delete is almost nothing. But if to create an index in a future, when a lot of rows - it could be too expensive with locking, even if Postgres can provide two steps of indexing._
 
