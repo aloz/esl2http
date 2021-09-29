@@ -247,4 +247,4 @@ p.s. Sorry for typos - it was nice 3 weeks to design and to develop non stop.
          
 p.p.s. - sorry, no to squash commits is available for online GIT
   #
- Copyright (c) by Anton Lozovsky, 2012
+ Copyright (c) by Anton Lozovskyi, 2012
